@@ -14,7 +14,7 @@ clean:
 	@ rm -f $(EXEC) $(OBJS)
 
 compile:
-	$(CC) *.c -o $(EXEC) $(CFLAGS)
+	$(CC) main.c ./src/*.c -o $(EXEC) $(CFLAGS)
 
 # compile and run
 run:

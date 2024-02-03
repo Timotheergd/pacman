@@ -4,15 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
-
-
-// Board size
-#define BOARD_WIDTH 19
-#define BOARD_HEIGHT 21
-
-#define LEVEL_SIZE BOARD_WIDTH*BOARD_HEIGHT
-
 #include "ressources.h"
 #include "player.h"
 #include "wall.h"

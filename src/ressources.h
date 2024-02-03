@@ -4,7 +4,24 @@
 #include <string.h>
 #include <stdio.h>
 
-// Coords
+// Constants
+
+// Board size
+#define BOARD_WIDTH 19
+#define BOARD_HEIGHT 21
+
+#define LEVEL_SIZE BOARD_WIDTH*BOARD_HEIGHT
+
+// SDL Window size
+#define WIN_WIDTH 800
+#define WIN_HEIGHT 800
+#define TILE_WIDTH WIN_WIDTH/BOARD_WIDTH
+#define TILE_HEIGHT WIN_HEIGHT/BOARD_HEIGHT
+
+#define FPS 60
+
+// Additional Structs / Enums
+
 typedef struct Coords Coords;
 struct Coords {
 	int x;

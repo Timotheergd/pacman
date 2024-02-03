@@ -75,8 +75,8 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board){
     */
     int i,j = 0;
     for(int k=0; k<strlen(*level_content);k++){
-        i=k/BOARD_WIDTH; // height
-        j=k%BOARD_WIDTH; // width
+        j=k/BOARD_WIDTH; // height
+        i=k%BOARD_WIDTH; // width
         switch((*level_content)[k]){
             case WALL:
                 board->nbWall+=1;

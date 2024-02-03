@@ -38,6 +38,7 @@ Chaque ligne est composée de plusieurs nombres :
 - basic game (ghost direction aléatoire)
 	- [X] import level
 	- [X] init every objects of the level
+	- [ ] Setup SDL
 	- [ ] move player
 	- [ ] collision with walls
 	- [ ] ghost
