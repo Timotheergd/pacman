@@ -10,6 +10,7 @@
 #include "ghost.h"
 #include "warp.h"
 #include "gum.h"
+#include "gestionGraphique.h"
 
 // store the player and an array of each type of objects with they size
 typedef struct Board Board;
@@ -32,5 +33,8 @@ void read_level(char filename[], int level_number, char (*level_content)[]);
 Board initBoard();
 void printBoardContent(Board *board);
 Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board);
+
+// SDL
+void renderWalls(Board *board, SDL_Texture *tex, SDL_Renderer *rend);
 
 #endif

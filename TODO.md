@@ -38,14 +38,17 @@ Chaque ligne est composée de plusieurs nombres :
 - basic game (ghost direction aléatoire)
 	- [X] import level
 	- [X] init every objects of the level
-	- [ ] Setup SDL
+	- [X] Setup SDL
 	- [ ] move player
-	- [ ] collision with walls
-	- [ ] ghost
+	- [ ] collision with walls (% si sort de l'écran)
+	- [ ] ghost (random path)
 	- [ ] gum and biggum
-( [ ] (warp)
+- [ ] (warp)
+- rotation player et ghosts selon direction
+- animation gums
 - ajouter du son
 - menu / end screen
+- Credits
 - best score
 - ghost avec différents algos (random, pathfinding, chemin le plus long..;) et fuir si super pacman
 - Unit test

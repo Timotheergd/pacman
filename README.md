@@ -15,5 +15,5 @@ Aucune idée :(
 ### Sur Linux
 
 - Ouvrir un terminal et se placer dans le dossier *./pacman*
-- Taper la commande : ```$make .PHONY```
+- Taper la commande : ```$make all```
 - S'amusez :)

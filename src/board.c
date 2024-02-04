@@ -111,3 +111,9 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board){
         }
     }
 }
+
+void renderWalls(Board *board, SDL_Texture *tex, SDL_Renderer *rend){
+    for(int i=0; i<board->nbWall;i++){
+        renderTexture(tex, rend, (board->wall_list)[i].coords.x, (board->wall_list)[i].coords.y, TILE_WIDTH, TILE_HEIGHT);
+    }
+}
