@@ -44,23 +44,28 @@ int main(int argc, char *argv[]){
 
 	// ********** GAME VARIABLES **********
 
-	Direction direction = IDLE;
-
-
+	Direction key_direction = IDLE;
 	bool close = false;
+
+	// ***** TEMP VAR / QUICK TESTS ******
+	int i=0;
+
 	while(!close){
 		SDL_Event event;
 		// Get keys / direction
-		processKeyboard(&close, &direction);
+		processKeyboard(&close, &key_direction);
 
 		// Move
+		printf("%d:direction=%d\n",i++, board.player.direction);
+		movePlayer(&board, key_direction);
+		print_Coords(board.player.coords);
 
 		//clear renderer
 		clearRenderer(rend);
 
 		//render objects
 		renderWalls(&board, wall_tex, rend);
-		renderTexture(player_tex, rend, TILE_WIDTH*9, TILE_HEIGHT*15, TILE_WIDTH, TILE_HEIGHT);
+		renderTexture(player_tex, rend, board.player.coords.x, board.player.coords.y, TILE_WIDTH, TILE_HEIGHT);
 
 		// update display
 		updateDisplay(rend);

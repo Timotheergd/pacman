@@ -67,11 +67,10 @@ void clearRenderer(SDL_Renderer *ren){
 }
 
 void processKeyboard(bool *close, Direction *direction){
-	// char pdirection = ' ';
 	SDL_Event event;
 	int key,button;
 	while (SDL_PollEvent(&event)) {
-			switch (event.type) {
+		switch (event.type) {
 			case SDL_QUIT:
 				// handling of close button
 				*close = true;
@@ -80,27 +79,28 @@ void processKeyboard(bool *close, Direction *direction){
 			case SDL_KEYDOWN:
 				// keyboard API for key pressed
 				switch (event.key.keysym.scancode) {
-				case SDL_SCANCODE_W:
-				case SDL_SCANCODE_UP:
-					*direction=UP;
-					break;
-				case SDL_SCANCODE_A:
-				case SDL_SCANCODE_LEFT:
-					*direction=LEFT;
-					break;
-				case SDL_SCANCODE_S:
-				case SDL_SCANCODE_DOWN:
-					*direction=DOWN;
-					break;
-				case SDL_SCANCODE_D:
-				case SDL_SCANCODE_RIGHT:
-					*direction=RIGHT;
-					break;
-				default:
-					// direction=IDLE;
-					break;
+					case SDL_SCANCODE_W:
+					case SDL_SCANCODE_UP:
+						*direction=UP;
+						break;
+					case SDL_SCANCODE_A:
+					case SDL_SCANCODE_LEFT:
+						*direction=LEFT;
+						break;
+					case SDL_SCANCODE_S:
+					case SDL_SCANCODE_DOWN:
+						*direction=DOWN;
+						break;
+					case SDL_SCANCODE_D:
+					case SDL_SCANCODE_RIGHT:
+						*direction=RIGHT;
+						break;
+					default:
+						// direction=IDLE;
+						break;
 				}
-			}
+		}
+	}
 }
 
 void QuitSDL(SDL_Window *win, SDL_Renderer *ren){

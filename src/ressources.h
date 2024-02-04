@@ -3,6 +3,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 // Constants
 
@@ -28,14 +29,15 @@ struct Coords {
 	int y;
 };
 
-Coords initCoords();
-void print_Coords(Coords c);
+
 
 typedef enum Direction Direction;
 enum Direction
 {
 	RIGHT, LEFT, UP, DOWN, IDLE
 };
+
+
 
 typedef enum Entity Entity;
 enum {
@@ -46,5 +48,11 @@ enum {
     BIGGUM = '5',
     WARP = '6'
 };
+
+Coords initCoords();
+void print_Coords(Coords c);
+Coords incrCoords(Coords coords, Direction dir, int speed);
+
+bool collision(Coords coords1, int height1, int width1, Coords coords2, int height2, int width2);
 
 #endif

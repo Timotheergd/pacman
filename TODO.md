@@ -39,8 +39,8 @@ Chaque ligne est composée de plusieurs nombres :
 	- [X] import level
 	- [X] init every objects of the level
 	- [X] Setup SDL
-	- [ ] move player
-	- [ ] collision with walls (% si sort de l'écran)
+	- [X] move player
+	- [X] collision with walls (% si sort de l'écran)
 	- [ ] ghost (random path)
 	- [ ] gum and biggum
 - [ ] (warp)

@@ -36,5 +36,8 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board);
 
 // SDL
 void renderWalls(Board *board, SDL_Texture *tex, SDL_Renderer *rend);
+bool wallCollision(Coords coords, Board *board);
+
+bool movePlayer(Board *board, Direction direction);
 
 #endif

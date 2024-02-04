@@ -10,7 +10,11 @@ struct Player {
 	 int speed;
 	 Direction direction;
 };
-Player initPlayer(Coords c);
+
 
 #include "board.h"
+
+Player initPlayer(Coords c);
+
+
 #endif

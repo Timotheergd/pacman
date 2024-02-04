@@ -6,6 +6,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+#include "ressources.h"
+
 /**
 * Initialise la SDL
 */
@@ -53,10 +55,11 @@ void updateDisplay(SDL_Renderer *ren);
  */
 void clearRenderer(SDL_Renderer *ren);
 
-/* Gestion de la souris
- * @ Retourne le caractère ('h','b','d','g') correspondant à la direction choisie
+/* Gestion du clavier
+ * @param close Un pointeur sur la variable de fermeture de la fenetre
+ * @param direction Un pointeur sur l'énumération contenant la direction choisie
  */
-char processKeyboard();
+void processKeyboard(bool *close, Direction *direction);
 
 /* Libère la mémoire de la fenêtre et du renderer
  * @param win Un pointeur sur une structure contenant la fenêtre

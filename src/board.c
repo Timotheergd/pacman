@@ -114,6 +114,52 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board){
 
 void renderWalls(Board *board, SDL_Texture *tex, SDL_Renderer *rend){
     for(int i=0; i<board->nbWall;i++){
-        renderTexture(tex, rend, (board->wall_list)[i].coords.x, (board->wall_list)[i].coords.y, TILE_WIDTH, TILE_HEIGHT);
+        renderTexture(tex, rend, (board->wall_list)[i].coords.x, (board->wall_list)[i].coords.y, TILE_WIDTH+1, TILE_HEIGHT+1);
     }
+}
+
+bool wallCollision(Coords coords, Board *board){
+    for(int i=0; i<board->nbWall;i++){
+        if(collision(coords, TILE_HEIGHT, TILE_WIDTH, (board->wall_list)[i].coords, TILE_HEIGHT, TILE_WIDTH)){
+            return true;
+        }
+    }
+    return false;
+}
+
+// Return true if the player as moved
+bool movePlayer(Board *board, Direction direction){
+    /*
+    key direction posible ?
+        yes -> change direction, move and exit
+        no  -> continue
+    player direction posible ?
+        yes -> move and exit
+        no  -> IDLE and exit
+    */
+
+    int align_speed=(board->player).speed; // speed needed to be align to move to an other direction 
+    do{
+        Coords align_coords_keyboard_direction = incrCoords((board->player).coords, (board->player).direction, align_speed);
+        Coords next_coords_keyboard_direction = incrCoords(align_coords_keyboard_direction, direction, (board->player).speed);
+        if(!wallCollision(next_coords_keyboard_direction, board)){
+            (board->player).direction=direction;
+            (board->player).coords=next_coords_keyboard_direction;
+            return true;
+        }
+        align_speed--;
+    }while(align_speed>1);
+
+    int speed = (board->player).speed;
+    do{
+        Coords next_coords_player_direction = incrCoords((board->player).coords, (board->player).direction, speed);
+        if(!wallCollision(next_coords_player_direction, board)){
+            (board->player).coords=next_coords_player_direction;
+            return true;
+        }
+        speed--; // Ajust speed until the player touch perfectly the wall
+    }while(speed>1);
+    (board->player).direction=IDLE;
+    printf("collision !");
+    return false;
 }
