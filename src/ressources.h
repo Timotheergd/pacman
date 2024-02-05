@@ -14,8 +14,8 @@
 #define LEVEL_SIZE BOARD_WIDTH*BOARD_HEIGHT
 
 // SDL Window size
-#define WIN_WIDTH 800
-#define WIN_HEIGHT 800
+#define WIN_WIDTH 19*40
+#define WIN_HEIGHT 21*40
 #define TILE_WIDTH WIN_WIDTH/BOARD_WIDTH
 #define TILE_HEIGHT WIN_HEIGHT/BOARD_HEIGHT
 
@@ -29,15 +29,11 @@ struct Coords {
 	int y;
 };
 
-
-
 typedef enum Direction Direction;
 enum Direction
 {
 	RIGHT, LEFT, UP, DOWN, IDLE
 };
-
-
 
 typedef enum Entity Entity;
 enum {
@@ -54,5 +50,8 @@ void print_Coords(Coords c);
 Coords incrCoords(Coords coords, Direction dir, int speed);
 
 bool collision(Coords coords1, int height1, int width1, Coords coords2, int height2, int width2);
+// bool opositeDirection(Direction d1, Direction d2);
+Direction opositeDirection(Direction dir);
+void relativeRightLeftDir(Direction dir, Direction *relRight, Direction *relLeft);
 
 #endif

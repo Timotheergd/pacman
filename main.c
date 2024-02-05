@@ -6,6 +6,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_ttf.h>
+#include <time.h>
 
 #include "src/ressources.h"
 #include "src/board.h"
@@ -41,6 +42,7 @@ int main(int argc, char *argv[]){
 	// Load textures
 	SDL_Texture* player_tex = loadTexture("assets/textures/pacman/pacman_right_open.png", rend);
 	SDL_Texture* wall_tex = loadTexture("assets/textures/wall.png", rend);
+	SDL_Texture* ghost_tex = loadTexture("assets/textures/ghost/ghost_red_right.png", rend);
 
 	// ********** GAME VARIABLES **********
 
@@ -56,9 +58,10 @@ int main(int argc, char *argv[]){
 		processKeyboard(&close, &key_direction);
 
 		// Move
-		printf("%d:direction=%d\n",i++, board.player.direction);
+		// printf("%d:direction=%d\n",i++, board.player.direction);
 		movePlayer(&board, key_direction);
-		print_Coords(board.player.coords);
+		// print_Coords(board.player.coords);
+		moveGhosts(&board);
 
 		//clear renderer
 		clearRenderer(rend);
@@ -66,9 +69,12 @@ int main(int argc, char *argv[]){
 		//render objects
 		renderWalls(&board, wall_tex, rend);
 		renderTexture(player_tex, rend, board.player.coords.x, board.player.coords.y, TILE_WIDTH, TILE_HEIGHT);
+		renderGhosts(&board, ghost_tex, rend);
 
 		// update display
 		updateDisplay(rend);
+		
+		// SDL_Delay(500);
 	}
 	
 

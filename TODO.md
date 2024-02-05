@@ -42,15 +42,18 @@ Chaque ligne est composée de plusieurs nombres :
 	- [X] move player
 	- [X] collision with walls (% si sort de l'écran)
 	- [ ] ghost (random path)
-	- [ ] gum and biggum
-- [ ] (warp)
+	- [ ] gum and biggum + print score
+	- [ ] add gate (ghost can go through but not the player)
 - rotation player et ghosts selon direction
-- animation gums
-- ajouter du son
+- (animation gums)
+- Free Board mem :)
 - menu / end screen
 - Credits
+- ajouter du son
 - best score
+- !taille_de_niveau : x!=19, y!=21
 - ghost avec différents algos (random, pathfinding, chemin le plus long..;) et fuir si super pacman
+- (warp)
 - Unit test
 - faire un éditeur de maps (terminal)
 - ajouter différentes maps

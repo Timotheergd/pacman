@@ -7,6 +7,7 @@ typedef struct Ghost Ghost;
 struct Ghost {
 	Coords coords;
 	int speed;
+	Direction direction;
 };
 Ghost initGhost();
 

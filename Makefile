@@ -3,6 +3,9 @@
 # set the compiler
 CC := gcc
 
+# source files path
+SRC_DIRS := ./src
+
 # set the compiler flags
 CFLAGS := `sdl2-config --libs --cflags` -lSDL2_image -lSDL2_ttf
 
@@ -11,10 +14,10 @@ EXEC := pacman
 
 # recipe to clean the workspace
 clean:
-	@ rm -f $(EXEC) $(OBJS)
+	@ rm -f $(EXEC)
 
 compile:
-	$(CC) main.c ./src/*.c -o $(EXEC) $(CFLAGS)
+	$(CC) main.c $(SRC_DIRS)/*.c -o $(EXEC) $(CFLAGS)
 
 # compile and run
 run:

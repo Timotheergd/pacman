@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "ressources.h"
 #include "player.h"
@@ -39,5 +40,8 @@ void renderWalls(Board *board, SDL_Texture *tex, SDL_Renderer *rend);
 bool wallCollision(Coords coords, Board *board);
 
 bool movePlayer(Board *board, Direction direction);
+void moveGhosts(Board *board);
+
+void renderGhosts(Board *board, SDL_Texture *tex, SDL_Renderer *rend);
 
 #endif
