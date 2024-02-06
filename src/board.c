@@ -169,18 +169,19 @@ bool movePlayer(Board *board, Direction direction){
         yes -> move and exit
         no  -> IDLE and exit
     */
-    
-    int align_speed=(board->player).speed; // speed needed to be align to move to an other direction 
-    do{
-        Coords align_coords_keyboard_direction = incrCoords((board->player).coords, (board->player).direction, align_speed);
-        Coords next_coords_keyboard_direction = incrCoords(align_coords_keyboard_direction, direction, (board->player).speed);
-        if(!wallCollision(next_coords_keyboard_direction, board)){
-            (board->player).direction=direction;
-            (board->player).coords=next_coords_keyboard_direction;
-            return true;
-        }
-        align_speed--;
-    }while(align_speed>1);
+    if(direction!=(board->player).direction){
+        int align_speed=(board->player).speed; // speed needed to be align to move to an other direction 
+        do{
+            Coords align_coords_keyboard_direction = incrCoords((board->player).coords, (board->player).direction, align_speed);
+            Coords next_coords_keyboard_direction = incrCoords(align_coords_keyboard_direction, direction, (board->player).speed);
+            if(!wallCollision(next_coords_keyboard_direction, board)){
+                (board->player).direction=direction;
+                (board->player).coords=next_coords_keyboard_direction;
+                return true;
+            }
+            align_speed--;
+        }while(align_speed>1);
+    }
     int speed = (board->player).speed;
     do{
         Coords next_coords_player_direction = incrCoords((board->player).coords, (board->player).direction, speed);
