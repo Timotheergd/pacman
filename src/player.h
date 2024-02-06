@@ -9,6 +9,7 @@ struct Player {
 	 int points;
 	 int speed;
 	 Direction direction;
+	 int health;
 };
 
 

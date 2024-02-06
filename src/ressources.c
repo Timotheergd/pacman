@@ -1,7 +1,7 @@
 #include "ressources.h"
 
 Coords initCoords(int i, int j){
-	Coords coords = {i*TILE_WIDTH,j*TILE_HEIGHT};
+	Coords coords = {i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT};
 	return coords;
 }
 
@@ -32,6 +32,7 @@ Coords incrCoords(Coords coords, Direction dir, int speed){
 
 	return coords;
 }
+
 bool collision(Coords coords1, int height1, int width1, Coords coords2, int height2, int width2){
     // Can be optimised
     return ((coords2.x+1 > coords1.x && coords2.x+1 < coords1.x+width1) && (coords2.y+1 > coords1.y && coords2.y+1 < coords1.y+height1)) || 					// left up corner

@@ -33,15 +33,19 @@ void read_level(char filename[], int level_number, char (*level_content)[]);
 
 Board initBoard();
 void printBoardContent(Board *board);
-Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board);
+Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, bool first_load);
 
 // SDL
 void renderWalls(Board *board, SDL_Texture *tex, SDL_Renderer *rend);
 bool wallCollision(Coords coords, Board *board);
+bool ghostCollision(Coords coords, Board *board);
+
 
 bool movePlayer(Board *board, Direction direction);
 void moveGhosts(Board *board);
 
 void renderGhosts(Board *board, SDL_Texture *tex, SDL_Renderer *rend);
+
+void renderPlayerHealth(Board *board, SDL_Texture *tex, SDL_Renderer *rend);
 
 #endif

@@ -28,11 +28,11 @@ int main(int argc, char *argv[]){
 	
 	// init board
 	Board board=initBoard();
-	loadBoard(&level_content, &board);
+	loadBoard(&level_content, &board, true);
 	
 	// TEST
 	printf("level %d:%s\n",level_number, level_content);
-	printBoardContent(&board);
+	// printBoardContent(&board);
 
 	/// ********** SDL INIT **********
 	initSDL();
@@ -48,33 +48,62 @@ int main(int argc, char *argv[]){
 
 	Direction key_direction = IDLE;
 	bool close = false;
+	bool on_level = true;
 
 	// ***** TEMP VAR / QUICK TESTS ******
 	int i=0;
 
 	while(!close){
 		SDL_Event event;
-		// Get keys / direction
-		processKeyboard(&close, &key_direction);
 
-		// Move
-		// printf("%d:direction=%d\n",i++, board.player.direction);
-		movePlayer(&board, key_direction);
-		// print_Coords(board.player.coords);
-		moveGhosts(&board);
+		// printf("HERE WE GO AGAIN !\n");
+		on_level=true;
 
-		//clear renderer
-		clearRenderer(rend);
+		// reset the board
+		loadBoard(&level_content, &board, false);
 
-		//render objects
-		renderWalls(&board, wall_tex, rend);
-		renderTexture(player_tex, rend, board.player.coords.x, board.player.coords.y, TILE_WIDTH, TILE_HEIGHT);
-		renderGhosts(&board, ghost_tex, rend);
+		while(on_level){
 
-		// update display
-		updateDisplay(rend);
-		
-		// SDL_Delay(500);
+			// Exit game 
+			if(board.player.health<=0){
+				// printf("T'ES NULLLL !!!!!!");
+				on_level = false;
+				close = true;
+				continue;
+			}
+
+			// Check death
+			if(ghostCollision(board.player.coords, &board)){
+				board.player.health--;
+				// printf("board.player.health=%d\n", board.player.health);
+				on_level=false;
+				// close=true;
+				printf("TODO : PACMAN DEATH ANIMATION\n");
+				continue;
+			}
+
+			// Get keys / direction
+			processKeyboard(&close, &on_level, &key_direction);
+
+			// Move
+			// printf("%d:direction=%d\n",i++, board.player.direction);
+			movePlayer(&board, key_direction);
+			// print_Coords(board.player.coords);
+			moveGhosts(&board);
+
+			//clear renderer
+			clearRenderer(rend);
+
+			//render objects
+			renderWalls(&board, wall_tex, rend);
+			renderTexture(player_tex, rend, board.player.coords.x, board.player.coords.y, TILE_WIDTH, TILE_HEIGHT); // render the player
+			renderGhosts(&board, ghost_tex, rend);
+			renderPlayerHealth(&board, player_tex, rend);
+			// update display
+			updateDisplay(rend);
+			
+			// SDL_Delay(500);
+		}
 	}
 	
 

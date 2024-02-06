@@ -66,7 +66,7 @@ void clearRenderer(SDL_Renderer *ren){
 	SDL_RenderClear(ren);
 }
 
-void processKeyboard(bool *close, Direction *direction){
+void processKeyboard(bool *close, bool *on_level, Direction *direction){
 	SDL_Event event;
 	int key,button;
 	while (SDL_PollEvent(&event)) {
@@ -74,6 +74,7 @@ void processKeyboard(bool *close, Direction *direction){
 			case SDL_QUIT:
 				// handling of close button
 				*close = true;
+				*on_level = false;
 				break;
 			// Get direction
 			case SDL_KEYDOWN:

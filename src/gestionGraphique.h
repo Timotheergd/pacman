@@ -59,7 +59,7 @@ void clearRenderer(SDL_Renderer *ren);
  * @param close Un pointeur sur la variable de fermeture de la fenetre
  * @param direction Un pointeur sur l'énumération contenant la direction choisie
  */
-void processKeyboard(bool *close, Direction *direction);
+void processKeyboard(bool *close, bool *on_level, Direction *direction);
 
 /* Libère la mémoire de la fenêtre et du renderer
  * @param win Un pointeur sur une structure contenant la fenêtre

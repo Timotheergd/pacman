@@ -61,7 +61,7 @@ Set the position of the player
 Fill arrays of walls, ghosts, ... with the correct position
 */
 // Board init_board(char (*level_content)[LEVEL_SIZE], Player *player, Wall *wall_list, Ghost *ghost_list, Warp *warp_list, Gum *gum_list, BigGum *bigGum_list){
-Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board){
+Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, bool first_load){
     /* Les objets sont stockés de la manière suivante :
     nombre	| objet
     --------+---------
@@ -73,6 +73,19 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board){
     5	    | big Gum
     6       | warp
     */
+
+    // Reset the board
+    board->wall_list=NULL;
+    board->ghost_list = NULL;
+    board->warp_list = NULL;
+    board->gum_list = NULL;
+    board->bigGum_list = NULL;
+    board->nbWall = 0;
+    board->nbGhost = 0;
+    board->nbWarp = 0;
+    board->nbGum = 0;
+    board->nbBigGum = 0;
+
     int i,j = 0;
     for(int k=0; k<strlen(*level_content);k++){
         j=k/BOARD_WIDTH; // height
@@ -84,7 +97,14 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board){
                 (board->wall_list)[board->nbWall-1]=initWall(initCoords(i,j));               
                 break;
             case PLAYER:
-                board->player=initPlayer(initCoords(i,j));               
+                if(first_load){
+                    board->player=initPlayer(initCoords(i,j));
+                }
+                else{
+                    (board->player).coords=initCoords(i,j);
+                    (board->player).direction=IDLE;
+                }
+                         
                 break;
             case GHOST:
                 board->nbGhost+=1;
@@ -114,7 +134,7 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board){
 
 void renderWalls(Board *board, SDL_Texture *tex, SDL_Renderer *rend){
     for(int i=0; i<board->nbWall;i++){
-        renderTexture(tex, rend, (board->wall_list)[i].coords.x, (board->wall_list)[i].coords.y, TILE_WIDTH+1, TILE_HEIGHT+1);
+        renderTexture(tex, rend, (board->wall_list)[i].coords.x, (board->wall_list)[i].coords.y, TILE_WIDTH+1, TILE_HEIGHT);
     }
 }
 
@@ -127,9 +147,18 @@ bool wallCollision(Coords coords, Board *board){
     return false;
 }
 
+bool ghostCollision(Coords coords, Board *board){
+    for(int i=0; i<board->nbGhost;i++){
+        if(collision(coords, TILE_HEIGHT, TILE_WIDTH, (board->ghost_list)[i].coords, TILE_HEIGHT, TILE_WIDTH)){
+            return true;
+        }
+    }
+    return false;
+}
+
 // Return true if the player as moved
 bool movePlayer(Board *board, Direction direction){
-    /*
+    /* Algo random direction
     key direction posible ?
         yes -> change direction, move and exit
         no  -> continue
@@ -280,4 +309,14 @@ void moveGhosts(Board *board){
             }
         }
     }     
+}
+
+void renderPlayerHealth(Board *board, SDL_Texture *tex, SDL_Renderer *rend){
+    /*
+    Render the texture under the board for each health of the player
+    */
+    for(int i=0;i<(board->player).health;i++){
+        renderTexture(tex, rend, i*(TILE_WIDTH+OFFSET), WIN_SCORE_HEIGHT+WIN_BOARD_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+    }
+
 }

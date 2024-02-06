@@ -14,10 +14,29 @@
 #define LEVEL_SIZE BOARD_WIDTH*BOARD_HEIGHT
 
 // SDL Window size
-#define WIN_WIDTH 19*40
-#define WIN_HEIGHT 21*40
-#define TILE_WIDTH WIN_WIDTH/BOARD_WIDTH
-#define TILE_HEIGHT WIN_HEIGHT/BOARD_HEIGHT
+
+// Tiles
+#define TILE_WIDTH 35
+#define TILE_HEIGHT 35
+
+// Board game
+#define WIN_BOARD_WIDTH BOARD_WIDTH*TILE_WIDTH
+#define WIN_BOARD_HEIGHT BOARD_HEIGHT*TILE_HEIGHT
+
+// Score section (up)
+#define WIN_SCORE_WIDTH WIN_BOARD_WIDTH
+#define WIN_SCORE_HEIGHT 100
+
+// Health section
+#define WIN_HEALTH_WIDTH WIN_BOARD_WIDTH
+#define WIN_HEALTH_HEIGHT TILE_HEIGHT
+
+// Total window
+#define WIN_WIDTH WIN_BOARD_WIDTH
+#define WIN_HEIGHT WIN_BOARD_HEIGHT+WIN_SCORE_HEIGHT+WIN_HEALTH_HEIGHT
+
+// space between health rendering
+#define OFFSET 10
 
 #define FPS 60
 
