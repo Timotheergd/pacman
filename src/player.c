@@ -4,7 +4,7 @@ Player initPlayer(Coords c){
 	Player p = {
 		.coords=c, 
 		.points=0, 
-		.speed=2, 
+		.speed=4, 
 		.direction=IDLE,
 		.health=3
 	} ;

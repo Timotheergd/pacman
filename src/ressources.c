@@ -1,7 +1,7 @@
 #include "ressources.h"
 
 Coords initCoords(int i, int j){
-	Coords coords = {i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT};
+	Coords coords = {i,j};
 	return coords;
 }
 

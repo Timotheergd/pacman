@@ -16,8 +16,8 @@
 // SDL Window size
 
 // Tiles
-#define TILE_WIDTH 35
-#define TILE_HEIGHT 35
+#define TILE_WIDTH 40
+#define TILE_HEIGHT TILE_WIDTH
 
 // Board game
 #define WIN_BOARD_WIDTH BOARD_WIDTH*TILE_WIDTH
@@ -37,6 +37,10 @@
 
 // space between health rendering
 #define OFFSET 10
+
+#define GUM_POINTS 10
+#define GUM_SIZE 10
+#define GUM_OFFSET (TILE_HEIGHT-GUM_SIZE)/2
 
 #define FPS 60
 

@@ -14,7 +14,7 @@
 #include "src/wall.h"
 #include "src/player.h"
 #include "src/ghost.h"
-// #include "srwarp.h" // Waiting for a solution...
+// #include "warp.h" // Waiting for a solution...
 #include "src/gum.h"
 
 int main(int argc, char *argv[]){
@@ -23,7 +23,7 @@ int main(int argc, char *argv[]){
 	// read file
 	char level_file[50]="levels.txt";
 	char level_content[LEVEL_SIZE]="";
-	int level_number=6;
+	int level_number=7;
 	read_level(level_file, level_number, &level_content);
 	
 	// init board
@@ -43,6 +43,7 @@ int main(int argc, char *argv[]){
 	SDL_Texture* player_tex = loadTexture("assets/textures/pacman/pacman_right_open.png", rend);
 	SDL_Texture* wall_tex = loadTexture("assets/textures/wall.png", rend);
 	SDL_Texture* ghost_tex = loadTexture("assets/textures/ghost/ghost_red_right.png", rend);
+	SDL_Texture* gum_tex = loadTexture("assets/textures/gum/gum.png", rend);
 
 	// ********** GAME VARIABLES **********
 
@@ -91,21 +92,25 @@ int main(int argc, char *argv[]){
 			// print_Coords(board.player.coords);
 			moveGhosts(&board);
 
+			eatGum(&board);
+			printf("points:%d\n", board.player.points);
+
 			//clear renderer
 			clearRenderer(rend);
 
 			//render objects
 			renderWalls(&board, wall_tex, rend);
+			renderGum(&board, gum_tex, rend);
 			renderTexture(player_tex, rend, board.player.coords.x, board.player.coords.y, TILE_WIDTH, TILE_HEIGHT); // render the player
 			renderGhosts(&board, ghost_tex, rend);
 			renderPlayerHealth(&board, player_tex, rend);
+			
 			// update display
 			updateDisplay(rend);
 			
 			// SDL_Delay(500);
 		}
 	}
-	
 
 	// SDL_Delay(3000);
 

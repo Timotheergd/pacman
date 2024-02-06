@@ -48,4 +48,7 @@ void renderGhosts(Board *board, SDL_Texture *tex, SDL_Renderer *rend);
 
 void renderPlayerHealth(Board *board, SDL_Texture *tex, SDL_Renderer *rend);
 
+void renderGum(Board *board, SDL_Texture *tex, SDL_Renderer *rend);
+bool eatGum(Board *board);
+
 #endif
