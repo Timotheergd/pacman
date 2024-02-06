@@ -33,21 +33,42 @@ SDL_Renderer * createRenderer(SDL_Window *win){
 	return ren;
 }
 
-SDL_Texture* loadTexture(const char* file, SDL_Renderer *ren){
+SDL_Texture* loadTexture(const char* file, SDL_Renderer *rend){
 	SDL_Texture *texture = NULL;
 	SDL_Surface *loadedImage = IMG_Load(file);
 	if (loadedImage != NULL){
-		texture = SDL_CreateTextureFromSurface(ren, loadedImage);
+		texture = SDL_CreateTextureFromSurface(rend, loadedImage);
 		SDL_FreeSurface(loadedImage);
 		if (texture == NULL){
 			printf("Error : CreateTextureFromSurface\n");
 		}
 	}
 	else {
-		printf("Error : LoadBMP\n");
+		printf("Error : Load\n");
 	}
 	return texture;
 }
+
+TTF_Font* loadFont(const char* file, int size){
+	TTF_Font* font = TTF_OpenFont(file, size);
+	return font;
+}
+
+SDL_Texture* loadText(const char* text,TTF_Font* font, SDL_Color color,  SDL_Renderer *rend){
+	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text, color);
+	SDL_Texture* text_tex = SDL_CreateTextureFromSurface(rend, textSurface);
+	SDL_FreeSurface(textSurface);
+	return text_tex;
+}
+
+// void renderText(const char* text,TTF_Font* font, SDL_Color color,  SDL_Renderer *rend){
+// 	SDL_Rect dst;
+// 	dst.x = x;
+// 	dst.y = y;
+// 	dst.w = width;
+// 	dst.h = height;
+// 	SDL_RenderCopy(rend, MessagePerdu, NULL, &MessagePerdu_rect);
+// }
 
 void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y, int width, int height){
 	SDL_Rect dst;

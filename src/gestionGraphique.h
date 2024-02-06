@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
 #include "ressources.h"
 
@@ -33,6 +34,10 @@ SDL_Renderer * createRenderer(SDL_Window *win);
 * @param ren Un pointeur vers la structure contenant le rendu
 */
 SDL_Texture* loadTexture(const char* file, SDL_Renderer *ren);
+
+
+TTF_Font* loadFont(const char* file, int size);
+SDL_Texture* loadText(const char* text,TTF_Font* font, SDL_Color color,  SDL_Renderer *rend);
 
 /**
 * Met la texture dans le rendu graphique à une position (x,y) dans le repère écran avec une taille de size

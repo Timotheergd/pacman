@@ -43,7 +43,10 @@ Chaque ligne est composée de plusieurs nombres :
 	- [X] collision with walls (% si sort de l'écran)
 	- [X] ghost (random path)
 	- [X] add ghost collision
-	- [ ] gum and biggum + print score
+	- [X] gum
+	- [X] print score
+	- [ ] win condition
+	- [ ] biggum + noob ghost
 	- [ ] add gate (ghost can go through but not the player)
 - [ ] rotation player et ghosts selon direction
 - [ ] pacman death animation
@@ -60,3 +63,7 @@ Chaque ligne est composée de plusieurs nombres :
 - [ ] ajouter différentes maps
 - [ ] faire un editeur graphique à la souris
 - [ ] (warp)
+
+### Bugs to fix
+
+- [ ] Pacman direction after reloading a level

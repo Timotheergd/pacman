@@ -51,4 +51,6 @@ void renderPlayerHealth(Board *board, SDL_Texture *tex, SDL_Renderer *rend);
 void renderGum(Board *board, SDL_Texture *tex, SDL_Renderer *rend);
 bool eatGum(Board *board);
 
+void renderPoints(Board *board, TTF_Font* font, SDL_Color color, SDL_Renderer *rend);
+
 #endif

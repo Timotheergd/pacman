@@ -45,6 +45,13 @@ int main(int argc, char *argv[]){
 	SDL_Texture* ghost_tex = loadTexture("assets/textures/ghost/ghost_red_right.png", rend);
 	SDL_Texture* gum_tex = loadTexture("assets/textures/gum/gum.png", rend);
 
+	// *********** FONTS **********
+	TTF_Init();
+	SDL_Color White = {255, 255, 255};
+	TTF_Font* points_font = loadFont("assets/Fonts/emulogic.ttf", 10);
+	
+	
+
 	// ********** GAME VARIABLES **********
 
 	Direction key_direction = IDLE;
@@ -87,13 +94,11 @@ int main(int argc, char *argv[]){
 			processKeyboard(&close, &on_level, &key_direction);
 
 			// Move
-			// printf("%d:direction=%d\n",i++, board.player.direction);
 			movePlayer(&board, key_direction);
-			// print_Coords(board.player.coords);
 			moveGhosts(&board);
 
+			// Actions
 			eatGum(&board);
-			printf("points:%d\n", board.player.points);
 
 			//clear renderer
 			clearRenderer(rend);
@@ -104,6 +109,7 @@ int main(int argc, char *argv[]){
 			renderTexture(player_tex, rend, board.player.coords.x, board.player.coords.y, TILE_WIDTH, TILE_HEIGHT); // render the player
 			renderGhosts(&board, ghost_tex, rend);
 			renderPlayerHealth(&board, player_tex, rend);
+			renderPoints(&board, points_font, White, rend);
 			
 			// update display
 			updateDisplay(rend);

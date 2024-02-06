@@ -101,8 +101,10 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, bool first_load
                     board->player=initPlayer(initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT));
                 }
                 else{
+                    printf("load player again\n");
                     (board->player).direction=IDLE;
                     (board->player).coords=initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT);
+                    printf("direction pacman reload:%d\n", (board->player).direction);
                     
                 }
                          
@@ -345,4 +347,11 @@ bool eatGum(Board *board){
             // no realloc because I don't care :)
         }
     }
+}
+
+void renderPoints(Board *board, TTF_Font* font, SDL_Color color, SDL_Renderer *rend){
+    char buffer[50];
+    sprintf(&buffer, "Points : %d\n", (board->player).points);
+    SDL_Texture* points_tex = loadText(buffer, font, color, rend);
+    renderTexture(points_tex, rend, OFFSET, OFFSET, WIN_WIDTH/3, WIN_SCORE_HEIGHT/2);
 }
