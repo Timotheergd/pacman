@@ -69,6 +69,7 @@ int main(int argc, char *argv[]){
 
 		// reset the board
 		loadBoard(&level_content, &board, false);
+		key_direction = IDLE;
 
 		while(on_level){
 

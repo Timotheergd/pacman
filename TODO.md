@@ -52,6 +52,8 @@ Chaque ligne est composée de plusieurs nombres :
 - [ ] pacman death animation
 - [ ] (animation gums)
 - [ ] Free Board mem :)
+- [ ] wall attach texture
+- [ ] warp texture in one file
 - [ ] menu / end screen
 - [ ] Credits
 - [ ] ajouter du son
@@ -66,4 +68,4 @@ Chaque ligne est composée de plusieurs nombres :
 
 ### Bugs to fix
 
-- [ ] Pacman direction after reloading a level
+- [X] Pacman direction after reloading a level
