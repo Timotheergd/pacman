@@ -327,7 +327,6 @@ void renderGum(Board *board, SDL_Texture *tex, SDL_Renderer *rend){
 bool eatGum(Board *board){
     for(int i=0; i<board->nbGum;i++){
         if(collision((board->player).coords, TILE_HEIGHT, TILE_WIDTH, (board->gum_list)[i].coords, GUM_SIZE, GUM_SIZE)){
-            printf("collision\n");
             // delete the gum
             for(int j=i; j < board->nbGum; j++){
                 (board->gum_list)[j]=(board->gum_list)[j+1];

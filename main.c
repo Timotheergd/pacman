@@ -28,7 +28,9 @@ int main(int argc, char *argv[]){
 	
 	// init board
 	Board board=initBoard();
-	loadBoard(&level_content, &board, true);
+	bool first_load=true;
+	loadBoard(&level_content, &board, first_load);
+	first_load=false;
 	
 	// TEST
 	printf("level %d:%s\n",level_number, level_content);
@@ -61,11 +63,12 @@ int main(int argc, char *argv[]){
 	while(!close){
 		SDL_Event event;
 
-		// printf("HERE WE GO AGAIN !\n");
+		printf("HERE WE GO AGAIN !\n");
 		on_level=true;
 
 		// reset the board
-		loadBoard(&level_content, &board, false);
+		loadBoard(&level_content, &board, first_load);
+		first_load=false;
 		key_direction = IDLE;
 
 		while(on_level){
@@ -83,6 +86,16 @@ int main(int argc, char *argv[]){
 				board.player.health--;
 				on_level=false;
 				printf("TODO : PACMAN DEATH ANIMATION\n");
+				continue;
+			}
+
+			// Check win
+			if(board.nbGum <= 0){
+				// all gums eatten
+				printf("WIN ! :)\n");
+				printf("TODO : WIN SCREEN\n");
+				on_level=false;
+				first_load=true;
 				continue;
 			}
 
