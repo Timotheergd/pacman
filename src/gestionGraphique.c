@@ -9,7 +9,6 @@ if(SDL_Init(SDL_INIT_VIDEO) < 0)  // initialisation de la SDL
     }
 }
 
-
 SDL_Window * createWindow(char winName[], int winWidth, int winHeigth){
     if (SDL_Init(SDL_INIT_VIDEO) != 0){
 			printf("SDL_Init Error\n");
@@ -60,15 +59,6 @@ SDL_Texture* loadText(const char* text,TTF_Font* font, SDL_Color color,  SDL_Ren
 	SDL_FreeSurface(textSurface);
 	return text_tex;
 }
-
-// void renderText(const char* text,TTF_Font* font, SDL_Color color,  SDL_Renderer *rend){
-// 	SDL_Rect dst;
-// 	dst.x = x;
-// 	dst.y = y;
-// 	dst.w = width;
-// 	dst.h = height;
-// 	SDL_RenderCopy(rend, MessagePerdu, NULL, &MessagePerdu_rect);
-// }
 
 void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y, int width, int height){
 	SDL_Rect dst;

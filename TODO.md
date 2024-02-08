@@ -52,6 +52,7 @@ Chaque ligne est composée de plusieurs nombres :
 - [ ] pacman death animation
 - [ ] (animation gums)
 - [ ] Free Board mem :)
+- [ ] gestionGraphics -> a refaire
 - [ ] wall attach texture
 - [ ] warp texture in one file
 - [ ] menu / end screen

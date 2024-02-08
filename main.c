@@ -50,10 +50,7 @@ int main(int argc, char *argv[]){
 	SDL_Color White = {255, 255, 255};
 	TTF_Font* points_font = loadFont("assets/Fonts/emulogic.ttf", 10);
 	
-	
-
 	// ********** GAME VARIABLES **********
-
 	Direction key_direction = IDLE;
 	bool close = false;
 	bool on_level = true;
@@ -73,9 +70,9 @@ int main(int argc, char *argv[]){
 
 		while(on_level){
 
-			// Exit game 
+			// Lose check
 			if(board.player.health<=0){
-				// printf("T'ES NULLLL !!!!!!");
+				// Exit game 
 				on_level = false;
 				close = true;
 				continue;
@@ -84,9 +81,7 @@ int main(int argc, char *argv[]){
 			// Check death
 			if(ghostCollision(board.player.coords, &board)){
 				board.player.health--;
-				// printf("board.player.health=%d\n", board.player.health);
 				on_level=false;
-				// close=true;
 				printf("TODO : PACMAN DEATH ANIMATION\n");
 				continue;
 			}
@@ -119,9 +114,6 @@ int main(int argc, char *argv[]){
 		}
 	}
 
-	// SDL_Delay(3000);
-
 	QuitSDL(win, rend);
-
 	return 0;
 }

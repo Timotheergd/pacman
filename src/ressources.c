@@ -61,7 +61,6 @@ Direction opositeDirection(Direction dir){
 			return IDLE;
 			break;
 	}
-
 }
 
 void relativeRightLeftDir(Direction dir, Direction *relRight, Direction *relLeft){

@@ -101,13 +101,9 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, bool first_load
                     board->player=initPlayer(initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT));
                 }
                 else{
-                    printf("load player again\n");
                     (board->player).direction=IDLE;
-                    (board->player).coords=initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT);
-                    printf("direction pacman reload:%d\n", (board->player).direction);
-                    
-                }
-                         
+                    (board->player).coords=initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT);                    
+                }   
                 break;
             case GHOST:
                 board->nbGhost+=1;
@@ -205,12 +201,6 @@ void renderGhosts(Board *board, SDL_Texture *tex, SDL_Renderer *rend){
         renderTexture(tex, rend, (board->ghost_list)[i].coords.x, (board->ghost_list)[i].coords.y, TILE_WIDTH, TILE_HEIGHT);
     }
 }
-
-// Direction chooseGhostDirection(Board *Board, int i){
-//     /*
-//     @param i : i-th ghost
-//     */
-// }
 
 bool moveAGhost(Board *board, int i){
     /*

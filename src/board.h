@@ -13,7 +13,7 @@
 #include "gum.h"
 #include "gestionGraphique.h"
 
-// store the player and an array of each type of objects with they size
+// store every objects of the map
 typedef struct Board Board;
 struct Board {
 	Player player;
@@ -32,14 +32,13 @@ struct Board {
 void read_level(char filename[], int level_number, char (*level_content)[]);
 
 Board initBoard();
-void printBoardContent(Board *board);
+void printBoardContent(Board *board); // for debugging
 Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, bool first_load);
 
 // SDL
 void renderWalls(Board *board, SDL_Texture *tex, SDL_Renderer *rend);
 bool wallCollision(Coords coords, Board *board);
 bool ghostCollision(Coords coords, Board *board);
-
 
 bool movePlayer(Board *board, Direction direction);
 void moveGhosts(Board *board);
