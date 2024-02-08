@@ -28,9 +28,9 @@ int main(int argc, char *argv[]){
 	
 	// init board
 	Board board=initBoard();
-	bool first_load=true;
-	loadBoard(&level_content, &board, first_load);
-	first_load=false;
+	LoadType load_type=NEW;
+	loadBoard(&level_content, &board, load_type);
+	load_type=RELOAD;
 	
 	// TEST
 	printf("level %d:%s\n",level_number, level_content);
@@ -45,7 +45,9 @@ int main(int argc, char *argv[]){
 	SDL_Texture* player_tex = loadTexture("assets/textures/pacman/pacman_right_open.png", rend);
 	SDL_Texture* wall_tex = loadTexture("assets/textures/wall.png", rend);
 	SDL_Texture* ghost_tex = loadTexture("assets/textures/ghost/ghost_red_right.png", rend);
+	SDL_Texture* ghost_scared_tex = loadTexture("assets/textures/ghost/ghost_blue_right.png", rend);
 	SDL_Texture* gum_tex = loadTexture("assets/textures/gum/gum.png", rend);
+	SDL_Texture* biggum_tex = loadTexture("assets/textures/gum/biggum.png", rend);
 
 	// *********** FONTS **********
 	TTF_Init();
@@ -56,6 +58,7 @@ int main(int argc, char *argv[]){
 	Direction key_direction = IDLE;
 	bool close = false;
 	bool on_level = true;
+	time_t super_mode;
 
 	// ***** TEMP VAR / QUICK TESTS ******
 	int i=0;
@@ -64,11 +67,12 @@ int main(int argc, char *argv[]){
 		SDL_Event event;
 
 		printf("HERE WE GO AGAIN !\n");
+	
+		// Reset values
 		on_level=true;
-
-		// reset the board
-		loadBoard(&level_content, &board, first_load);
-		first_load=false;
+		loadBoard(&level_content, &board, load_type);
+		load_type=RELOAD;
+		super_mode = time(NULL)-(double)(SUPER_TIME+1);
 		key_direction = IDLE;
 
 		while(on_level){
@@ -82,20 +86,31 @@ int main(int argc, char *argv[]){
 			}
 
 			// Check death
-			if(ghostCollision(board.player.coords, &board)){
-				board.player.health--;
-				on_level=false;
-				printf("TODO : PACMAN DEATH ANIMATION\n");
-				continue;
+			int collidedGhost = ghostCollision(board.player.coords, &board);
+			int super_time = (int)difftime(time(NULL), super_mode);
+			if(collidedGhost!=-1){
+				
+				if(super_time<SUPER_TIME){
+					// eat ghost
+					(board.ghost_list)[collidedGhost].coords=initCoords(9*TILE_WIDTH, 9*TILE_HEIGHT+WIN_SCORE_HEIGHT); // TEMPORARY, need better init
+					board.player.points+=GHOST_POINTS;
+				}
+				else{
+					// death
+					board.player.health--;
+					on_level=false;
+					printf("TODO : PACMAN DEATH ANIMATION\n");
+					continue;
+				}	
 			}
 
 			// Check win
-			if(board.nbGum <= 0){
+			if(board.nbGum <= 0 && board.nbBigGum <= 0){
 				// all gums eatten
 				printf("WIN ! :)\n");
 				printf("TODO : WIN SCREEN\n");
 				on_level=false;
-				first_load=true;
+				load_type=CHANGE_LEVEL;
 				continue;
 			}
 
@@ -108,6 +123,10 @@ int main(int argc, char *argv[]){
 
 			// Actions
 			eatGum(&board);
+			eatBigGum(&board, &super_mode);
+
+			printf("super mode:%d\n", (int)difftime(time(NULL), super_mode));
+
 
 			//clear renderer
 			clearRenderer(rend);
@@ -115,8 +134,15 @@ int main(int argc, char *argv[]){
 			//render objects
 			renderWalls(&board, wall_tex, rend);
 			renderGum(&board, gum_tex, rend);
+			renderBigGum(&board, biggum_tex, rend);
 			renderTexture(player_tex, rend, board.player.coords.x, board.player.coords.y, TILE_WIDTH, TILE_HEIGHT); // render the player
-			renderGhosts(&board, ghost_tex, rend);
+			if(super_time<SUPER_TIME){
+				renderGhosts(&board, ghost_scared_tex, rend);
+			}
+			else{
+				renderGhosts(&board, ghost_tex, rend);
+			}
+			
 			renderPlayerHealth(&board, player_tex, rend);
 			renderPoints(&board, points_font, White, rend);
 			
@@ -126,7 +152,8 @@ int main(int argc, char *argv[]){
 			// SDL_Delay(500);
 		}
 	}
-
+	SDL_Delay(500);
+	printf("quit\n");
 	QuitSDL(win, rend);
 	return 0;
 }

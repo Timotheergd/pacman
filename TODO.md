@@ -46,13 +46,17 @@ Chaque ligne est composée de plusieurs nombres :
 	- [X] gum
 	- [X] print score
 	- [x] win condition
-	- [ ] biggum + noob ghost
+	- [x] biggum + eat ghost
 	- [ ] add gate (ghost can go through but not the player)
-- [ ] rotation player et ghosts selon direction
+- [ ] rotation player et ghosts selon direction + scared ghosts(clignotte quand reste plus que 2sec)
 - [ ] pacman death animation
 - [ ] (animation gums)
 - [ ] Free Board mem :)
+- [ ] remake collision
+- [ ] remake pacman move
 - [ ] gestionGraphics -> a refaire
+- [ ] ^^^ objectif ^^^
+- [ ] vvv  bonus   vvv 
 - [ ] wall attach texture
 - [ ] Paques Man (tete ile de Paques -> mange oeufs en chhocolat)
 - [ ] warp texture in one file

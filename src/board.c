@@ -61,7 +61,7 @@ Set the position of the player
 Fill arrays of walls, ghosts, ... with the correct position
 */
 // Board init_board(char (*level_content)[LEVEL_SIZE], Player *player, Wall *wall_list, Ghost *ghost_list, Warp *warp_list, Gum *gum_list, BigGum *bigGum_list){
-Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, bool first_load){
+Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, LoadType load_type){
     /* Les objets sont stockés de la manière suivante :
     nombre	| objet
     --------+---------
@@ -78,13 +78,15 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, bool first_load
     board->wall_list=NULL;
     board->ghost_list = NULL;
     board->warp_list = NULL;
-    // board->gum_list = NULL;
-    board->bigGum_list = NULL;
     board->nbWall = 0;
     board->nbGhost = 0;
     board->nbWarp = 0;
-    // board->nbGum = 0;
-    board->nbBigGum = 0;
+    if(load_type==NEW || load_type==CHANGE_LEVEL){
+        board->gum_list = NULL;
+        board->bigGum_list = NULL;
+        board->nbGum = 0;
+        board->nbBigGum = 0;
+    }
 
     int i,j = 0;
     for(int k=0; k<strlen(*level_content);k++){
@@ -97,7 +99,7 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, bool first_load
                 (board->wall_list)[board->nbWall-1]=initWall(initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT));               
                 break;
             case PLAYER:
-                if(first_load){
+                if(load_type==NEW){
                     board->player=initPlayer(initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT));
                 }
                 else{
@@ -111,16 +113,18 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, bool first_load
                 (board->ghost_list)[board->nbGhost-1]=initGhost(initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT));               
                 break;
             case GUM:
-                if(first_load){
+                if(load_type==NEW || load_type==CHANGE_LEVEL){
                     board->nbGum+=1;
                     board->gum_list=(Gum*)realloc(board->gum_list, board->nbGum*sizeof(Gum));
                     (board->gum_list)[board->nbGum-1]=initGum(initCoords(i*TILE_WIDTH+GUM_OFFSET,j*TILE_HEIGHT+WIN_SCORE_HEIGHT+GUM_OFFSET));
                 }
                 break;
             case BIGGUM:
-                board->nbBigGum+=1;
-                board->bigGum_list=(BigGum*)realloc(board->bigGum_list, board->nbBigGum*sizeof(BigGum));
-                (board->bigGum_list)[board->nbBigGum-1]=initBigGum(initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT));               
+                if(load_type==NEW || load_type==CHANGE_LEVEL){
+                    board->nbBigGum+=1;
+                    board->bigGum_list=(BigGum*)realloc(board->bigGum_list, board->nbBigGum*sizeof(BigGum));
+                    (board->bigGum_list)[board->nbBigGum-1]=initBigGum(initCoords(i*TILE_WIDTH+BIGGUM_OFFSET,j*TILE_HEIGHT+WIN_SCORE_HEIGHT+BIGGUM_OFFSET)); 
+                }              
                 break;
             // case WARP: // Waiting a solution to store it....
             //     board->nbWarp+=1;
@@ -148,13 +152,13 @@ bool wallCollision(Coords coords, Board *board){
     return false;
 }
 
-bool ghostCollision(Coords coords, Board *board){
+int ghostCollision(Coords coords, Board *board){
     for(int i=0; i<board->nbGhost;i++){
         if(collision(coords, TILE_HEIGHT, TILE_WIDTH, (board->ghost_list)[i].coords, TILE_HEIGHT, TILE_WIDTH)){
-            return true;
+            return i;
         }
     }
-    return false;
+    return -1;
 }
 
 // Return true if the player as moved
@@ -167,6 +171,20 @@ bool movePlayer(Board *board, Direction direction){
         yes -> move and exit
         no  -> IDLE and exit
     */
+
+    /*
+    TODO : implement :
+    -key direction posible ?
+        yes -> change direction, move and exit
+        no  -> continue
+    player direction posible ?
+        yes -> 
+            intersection near ?
+                -> align and exit
+                -> move and exit
+        no  -> IDLE and exit
+    */
+
     if(direction!=(board->player).direction){
         int align_speed=(board->player).speed; // speed needed to be align to move to an other direction 
         do{
@@ -343,4 +361,24 @@ void renderPoints(Board *board, TTF_Font* font, SDL_Color color, SDL_Renderer *r
     sprintf(&buffer, "Points : %d\n", (board->player).points);
     SDL_Texture* points_tex = loadText(buffer, font, color, rend);
     renderTexture(points_tex, rend, OFFSET, OFFSET, WIN_WIDTH/3, WIN_SCORE_HEIGHT/2);
+}
+
+void renderBigGum(Board *board, SDL_Texture *tex, SDL_Renderer *rend){
+    for(int i=0; i<board->nbBigGum;i++){
+        renderTexture(tex, rend, (board->bigGum_list)[i].coords.x, (board->bigGum_list)[i].coords.y, BIGGUM_SIZE, BIGGUM_SIZE);
+    }
+}
+
+bool eatBigGum(Board *board, time_t *super_mode){
+    for(int i=0; i<board->nbBigGum;i++){
+        if(collision((board->player).coords, TILE_HEIGHT, TILE_WIDTH, (board->bigGum_list)[i].coords, BIGGUM_SIZE, BIGGUM_SIZE)){
+            // delete the gum
+            for(int j=i; j < board->nbGum; j++){
+                (board->bigGum_list)[j]=(board->bigGum_list)[j+1];
+            }
+            board->nbBigGum--;
+            // no realloc because I don't care :)
+            *super_mode=time(NULL);
+        }
+    }
 }

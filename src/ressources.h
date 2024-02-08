@@ -42,6 +42,14 @@
 #define GUM_SIZE 10
 #define GUM_OFFSET (TILE_HEIGHT-GUM_SIZE)/2
 
+#define BIGGUM_POINTS 50
+#define BIGGUM_SIZE 20
+#define BIGGUM_OFFSET (TILE_HEIGHT-BIGGUM_SIZE)/2
+
+#define SUPER_TIME 10
+
+#define GHOST_POINTS 200
+
 #define FPS 60
 
 // Additional Structs / Enums
@@ -66,6 +74,12 @@ enum {
     GUM = '4',
     BIGGUM = '5',
     WARP = '6'
+};
+
+typedef enum LoadType LoadType;
+enum LoadType
+{
+	NEW, RELOAD, CHANGE_LEVEL
 };
 
 Coords initCoords();
