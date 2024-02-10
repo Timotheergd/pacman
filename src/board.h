@@ -12,6 +12,7 @@
 #include "warp.h"
 #include "gum.h"
 #include "gestionGraphique.h"
+#include "gate.h"
 
 // store every objects of the map
 typedef struct Board Board;
@@ -22,11 +23,13 @@ struct Board {
 	Warp *warp_list;
 	Gum *gum_list;
 	BigGum *bigGum_list;
+	Gate *gate_list;
     int nbWall;
     int nbGhost;
     int nbWarp;
     int nbGum;
     int nbBigGum;
+	int nbGate;
 };
 
 void read_level(char filename[], int level_number, char (*level_content)[]);
@@ -38,6 +41,7 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, LoadType load_t
 // SDL
 void renderWalls(Board *board, SDL_Texture *tex, SDL_Renderer *rend);
 bool wallCollision(Coords coords, Board *board);
+bool gateCollision(Coords coords, Board *board);
 int ghostCollision(Coords coords, Board *board);
 
 bool movePlayer(Board *board, Direction direction);
@@ -55,5 +59,7 @@ void renderPoints(Board *board, TTF_Font* font, SDL_Color color, SDL_Renderer *r
 void renderBigGum(Board *board, SDL_Texture *tex, SDL_Renderer *rend);
 
 bool eatBigGum(Board *board, time_t *super_mode);
+
+void renderGate(Board *board, SDL_Texture *tex, SDL_Renderer *rend);
 
 #endif

@@ -34,5 +34,5 @@ Each line is formed by numbers :
 |3|ghost|
 |4|gum|
 |5|big Gum|
-|6|(warp)|
+|6|gate|
 

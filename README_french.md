@@ -34,5 +34,5 @@ Chaque ligne est composée de plusieurs nombres :
 |3|fantome|
 |4|gum|
 |5|big Gum|
-|6|téléporteur|
+|6|barrière|
 

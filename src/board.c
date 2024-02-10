@@ -20,11 +20,13 @@ Board initBoard(){
         .warp_list = NULL,
         .gum_list = NULL,
         .bigGum_list = NULL,
+        .gate_list = NULL,
         .nbWall = 0,
         .nbGhost = 0,
         .nbWarp = 0,
         .nbGum = 0,
-        .nbBigGum = 0
+        .nbBigGum = 0,
+        .nbGate = 0
     };
 	return b;
 }
@@ -54,6 +56,11 @@ void printBoardContent(Board *board){
     for(int i=0;i<board->nbBigGum;i++){
         print_Coords((board->bigGum_list[i]).coords);
     }
+
+    printf("gate\n");
+    for(int i=0;i<board->nbGate;i++){
+        print_Coords((board->gate_list[i]).coords);
+    }
 }
 
 /*
@@ -75,17 +82,21 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, LoadType load_t
     */
 
     // Reset the board
-    board->wall_list=NULL;
+    
     board->ghost_list = NULL;
-    board->warp_list = NULL;
-    board->nbWall = 0;
     board->nbGhost = 0;
-    board->nbWarp = 0;
+    // board->warp_list = NULL;
+    // board->nbWarp = 0;
+    
     if(load_type==NEW || load_type==CHANGE_LEVEL){
+        board->wall_list=NULL;
         board->gum_list = NULL;
         board->bigGum_list = NULL;
+        board->gate_list = NULL;
+        board->nbWall = 0;
         board->nbGum = 0;
         board->nbBigGum = 0;
+        board->nbGate = 0;
     }
 
     int i,j = 0;
@@ -94,9 +105,11 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, LoadType load_t
         i=k%BOARD_WIDTH; // width
         switch((*level_content)[k]){
             case WALL:
-                board->nbWall+=1;
-                board->wall_list=(Wall*)realloc(board->wall_list, board->nbWall*sizeof(Wall));
-                (board->wall_list)[board->nbWall-1]=initWall(initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT));               
+                if(load_type==NEW || load_type==CHANGE_LEVEL){
+                    board->nbWall+=1;
+                    board->wall_list=(Wall*)realloc(board->wall_list, board->nbWall*sizeof(Wall));
+                    (board->wall_list)[board->nbWall-1]=initWall(initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT));
+                }            
                 break;
             case PLAYER:
                 if(load_type==NEW){
@@ -126,6 +139,13 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, LoadType load_t
                     (board->bigGum_list)[board->nbBigGum-1]=initBigGum(initCoords(i*TILE_WIDTH+BIGGUM_OFFSET,j*TILE_HEIGHT+WIN_SCORE_HEIGHT+BIGGUM_OFFSET)); 
                 }              
                 break;
+            case GATE:
+                if(load_type==NEW || load_type==CHANGE_LEVEL){
+                    board->nbGate+=1;
+                    board->gate_list=(Gate*)realloc(board->gate_list, board->nbGate*sizeof(Gate));
+                    (board->gate_list)[board->nbGate-1]=initGate(initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT)); 
+                }              
+                break;
             // case WARP: // Waiting a solution to store it....
             //     board->nbWarp+=1;
             //     board->warp_list=(Warp*)realloc(board->warp_list, board->nbWarp*sizeof(Warp));
@@ -146,6 +166,15 @@ void renderWalls(Board *board, SDL_Texture *tex, SDL_Renderer *rend){
 bool wallCollision(Coords coords, Board *board){
     for(int i=0; i<board->nbWall;i++){
         if(collision(coords, TILE_HEIGHT, TILE_WIDTH, (board->wall_list)[i].coords, TILE_HEIGHT, TILE_WIDTH)){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool gateCollision(Coords coords, Board *board){
+    for(int i=0; i<board->nbGate;i++){
+        if(collision(coords, TILE_HEIGHT, TILE_WIDTH, (board->gate_list)[i].coords, TILE_HEIGHT, TILE_WIDTH)){
             return true;
         }
     }
@@ -190,7 +219,7 @@ bool movePlayer(Board *board, Direction direction){
         do{
             Coords align_coords_keyboard_direction = incrCoords((board->player).coords, (board->player).direction, align_speed);
             Coords next_coords_keyboard_direction = incrCoords(align_coords_keyboard_direction, direction, (board->player).speed);
-            if(!wallCollision(next_coords_keyboard_direction, board)){
+            if(!wallCollision(next_coords_keyboard_direction, board) && !gateCollision(next_coords_keyboard_direction, board)){
                 (board->player).direction=direction;
                 (board->player).coords=next_coords_keyboard_direction;
                 return true;
@@ -201,7 +230,7 @@ bool movePlayer(Board *board, Direction direction){
     int speed = (board->player).speed;
     do{
         Coords next_coords_player_direction = incrCoords((board->player).coords, (board->player).direction, speed);
-        if(!wallCollision(next_coords_player_direction, board)){
+        if(!wallCollision(next_coords_player_direction, board) && !gateCollision(next_coords_player_direction, board)){
             (board->player).coords=next_coords_player_direction;
             return true;
         }
@@ -380,5 +409,11 @@ bool eatBigGum(Board *board, time_t *super_mode){
             // no realloc because I don't care :)
             *super_mode=time(NULL);
         }
+    }
+}
+
+void renderGate(Board *board, SDL_Texture *tex, SDL_Renderer *rend){
+    for(int i=0; i<board->nbGate;i++){
+        renderTexture(tex, rend, (board->gate_list)[i].coords.x, (board->gate_list)[i].coords.y, TILE_WIDTH, TILE_HEIGHT);
     }
 }

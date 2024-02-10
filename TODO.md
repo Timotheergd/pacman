@@ -18,7 +18,7 @@ Chaque ligne est composée de plusieurs nombres :
 |3|fantome|
 |4|gum|
 |5|big Gum|
-|6|téléporteur|
+|6|gate|
 
 
 ## Structure
@@ -47,7 +47,9 @@ Chaque ligne est composée de plusieurs nombres :
 	- [X] print score
 	- [x] win condition
 	- [x] biggum + eat ghost
-	- [ ] add gate (ghost can go through but not the player)
+	- [x] add gate (ghost can go through but not the player)
+	- [ ] heal time pour les ghosts
+	- [ ] si pleusieurs ghosts eatten in the same super -> more points
 - [ ] rotation player et ghosts selon direction + scared ghosts(clignotte quand reste plus que 2sec)
 - [ ] pacman death animation
 - [ ] (animation gums)

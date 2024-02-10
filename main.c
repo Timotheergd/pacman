@@ -14,6 +14,7 @@
 #include "src/wall.h"
 #include "src/player.h"
 #include "src/ghost.h"
+#include "src/gate.h"
 // #include "warp.h" // Waiting for a solution...
 #include "src/gum.h"
 
@@ -48,6 +49,7 @@ int main(int argc, char *argv[]){
 	SDL_Texture* ghost_scared_tex = loadTexture("assets/textures/ghost/ghost_blue_right.png", rend);
 	SDL_Texture* gum_tex = loadTexture("assets/textures/gum/gum.png", rend);
 	SDL_Texture* biggum_tex = loadTexture("assets/textures/gum/biggum.png", rend);
+	SDL_Texture* gate_tex = loadTexture("assets/textures/red_gate.png", rend);
 
 	// *********** FONTS **********
 	TTF_Init();
@@ -145,6 +147,7 @@ int main(int argc, char *argv[]){
 			
 			renderPlayerHealth(&board, player_tex, rend);
 			renderPoints(&board, points_font, White, rend);
+			renderGate(&board, gate_tex, rend);
 			
 			// update display
 			updateDisplay(rend);

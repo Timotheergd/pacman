@@ -1,7 +1,7 @@
-#include "wall.h"
+#include "gate.h"
 
-Wall initWall(Coords coords){
-	Wall w = {coords};
-	return w;
+Gate initGate(Coords coords){
+	Gate g = {coords};
+	return g;
 }
 
