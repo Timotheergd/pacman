@@ -5,7 +5,7 @@ Ghost initGhost(Coords c){
 		.coords=c,
 		.speed=3,
 		.direction=IDLE,
-		.death_time=time(NULL),
+		.death_time=0,
 		.respawnPoint=c
 	};
 	return g;

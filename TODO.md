@@ -50,7 +50,7 @@ Chaque ligne est composée de plusieurs nombres :
 	- [x] biggum + eat ghost
 	- [x] add gate (ghost can go through but not the player)
 	- [x] respawn point for ghosts
-	- [ ] heal time pour les ghosts
+	- [x] heal time pour les ghosts
 	- [ ] *code improvement :* move super_mode in player struct
 	- [ ] si pleusieurs ghosts eatten in the same super -> more points
 - [ ] rotation player et ghosts selon direction + scared ghosts(clignotte quand reste plus que 2sec)

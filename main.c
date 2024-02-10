@@ -95,6 +95,7 @@ int main(int argc, char *argv[]){
 				if(super_time<SUPER_TIME){
 					// eat ghost
 					(board.ghost_list)[collidedGhost].coords=((board.ghost_list)[collidedGhost]).respawnPoint;
+					((board.ghost_list)[collidedGhost]).death_time=time(NULL);
 					board.player.points+=GHOST_POINTS;
 				}
 				else{
@@ -155,7 +156,7 @@ int main(int argc, char *argv[]){
 			// SDL_Delay(500);
 		}
 	}
-	SDL_Delay(500);
+	// SDL_Delay(500);
 	printf("quit\n");
 	QuitSDL(win, rend);
 	return 0;

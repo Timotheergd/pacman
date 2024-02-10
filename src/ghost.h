@@ -2,13 +2,14 @@
 #define GHOST_H
 
 #include "ressources.h"
+#include "time.h"
 
 typedef struct Ghost Ghost;
 struct Ghost {
 	Coords coords;
 	int speed;
 	Direction direction;
-	int death_time;
+	time_t death_time;
 	Coords respawnPoint;
 };
 Ghost initGhost();

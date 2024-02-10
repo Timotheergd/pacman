@@ -292,8 +292,8 @@ bool moveAGhost(Board *board, int i){
     do{
         for(int j=0;j<2;j++){ // relative right and left check
             Coords align_coords = incrCoords(((board->ghost_list)[i]).coords, ((board->ghost_list)[i]).direction, align_speed);
-            Coords next_coords_keyboard_direction = incrCoords(align_coords, relativeRL[j], ((board->ghost_list)[i]).speed);
-            if(!wallCollision(next_coords_keyboard_direction, board)){
+            Coords next_coords_right_left_direction = incrCoords(align_coords, relativeRL[j], ((board->ghost_list)[i]).speed);
+            if(!wallCollision(next_coords_right_left_direction, board) && !((time(NULL)-((board->ghost_list)[i]).death_time)<GHOST_DEATH_TIME && gateCollision(next_coords_right_left_direction, board))){
                 // move to the intersection
                 ((board->ghost_list)[i]).coords=align_coords;
                 return true;
@@ -306,7 +306,7 @@ bool moveAGhost(Board *board, int i){
     int speed = ((board->ghost_list)[i]).speed;
     do{
         Coords next_coords_ghost_direction = incrCoords(((board->ghost_list)[i]).coords, ((board->ghost_list)[i]).direction, speed);
-        if(!wallCollision(next_coords_ghost_direction, board)){
+        if(!wallCollision(next_coords_ghost_direction, board) && !((time(NULL)-((board->ghost_list)[i]).death_time)<GHOST_DEATH_TIME && gateCollision(next_coords_ghost_direction, board))){
             ((board->ghost_list)[i]).coords=next_coords_ghost_direction;
             return true;
         }
@@ -336,6 +336,15 @@ void moveGhosts(Board *board){
                         - no : IDLE, ERROR
         */
 
+        /*
+        TODO :
+        "To give the game some tension, I wanted the monsters to surround Pac Man at some stage of the game. 
+        But I felt it would be too stressful for a human being like Pac Man to be continually surrounded and
+        hunted down. So I created the monsters' invasions to come in waves. They'd attack and then they'd retreat. 
+        As time went by they would regroup, attack, and disperse again. It seemed more natural than having constant attack."
+        - Toru Iwatani, Pac-Man creator
+        */
+
         // Get a random direction if IDLE
         if(((board->ghost_list)[i]).direction==IDLE){
             ((board->ghost_list)[i]).direction=rand()%4;
@@ -350,7 +359,8 @@ void moveGhosts(Board *board){
         // for each derection (0 to 3), check if can move : yes -> add it to the list of available directions
         for(int j=0; j<4;j++){
             if(j!=opositeDirection(((board->ghost_list)[i]).direction)){ // Do not consider going back for now
-                if(!wallCollision(incrCoords(((board->ghost_list)[i]).coords, j, ((board->ghost_list)[i]).speed), board)){
+                if(!wallCollision(incrCoords(((board->ghost_list)[i]).coords, j, ((board->ghost_list)[i]).speed), board) && !((time(NULL)-((board->ghost_list)[i]).death_time)<GHOST_DEATH_TIME && gateCollision(incrCoords(((board->ghost_list)[i]).coords, j, ((board->ghost_list)[i]).speed), board))){
+                // if(!wallCollision(incrCoords(((board->ghost_list)[i]).coords, j, ((board->ghost_list)[i]).speed), board)){
                     nb_available_direction++;
                     available_direction=(Direction*)realloc(available_direction, nb_available_direction*sizeof(Direction));
                     (available_direction)[nb_available_direction-1]=j;
