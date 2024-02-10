@@ -24,7 +24,7 @@ int main(int argc, char *argv[]){
 	// read file
 	char level_file[50]="levels.txt";
 	char level_content[LEVEL_SIZE]="";
-	int level_number=7;
+	int level_number=3;
 	read_level(level_file, level_number, &level_content);
 	
 	// init board
