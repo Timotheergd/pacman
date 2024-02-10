@@ -25,9 +25,9 @@ Coords incrCoords(Coords coords, Direction dir, int speed){
 			break;
 	}
 	// check boundaries
-	coords.x%=WIN_WIDTH-TILE_WIDTH;					// right
-	if(coords.y>(WIN_SCORE_HEIGHT+WIN_BOARD_HEIGHT-TILE_WIDTH)) coords.y=WIN_SCORE_HEIGHT;				// down
-	if(coords.x<0) coords.x=WIN_WIDTH-TILE_WIDTH;	// left
+	coords.x%=WIN_WIDTH-TILE_WIDTH;															// right
+	if(coords.y>(WIN_SCORE_HEIGHT+WIN_BOARD_HEIGHT-TILE_WIDTH)) coords.y=WIN_SCORE_HEIGHT;	// down
+	if(coords.x<0) coords.x=WIN_WIDTH-TILE_WIDTH;											// left
 	if(coords.y<WIN_SCORE_HEIGHT) coords.y=WIN_SCORE_HEIGHT+WIN_BOARD_HEIGHT-TILE_HEIGHT;	// up
 
 	return coords;

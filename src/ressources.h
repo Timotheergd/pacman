@@ -73,7 +73,8 @@ enum {
     GHOST = '3',
     GUM = '4',
     BIGGUM = '5',
-    GATE = '6'
+    GATE = '6',
+    GHOST_RESPAWN = '7'
 };
 
 typedef enum LoadType LoadType;

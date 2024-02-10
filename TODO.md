@@ -19,6 +19,7 @@ Chaque ligne est composée de plusieurs nombres :
 |4|gum|
 |5|big Gum|
 |6|gate|
+|7|ghost respawn point|
 
 
 ## Structure
@@ -48,18 +49,21 @@ Chaque ligne est composée de plusieurs nombres :
 	- [x] win condition
 	- [x] biggum + eat ghost
 	- [x] add gate (ghost can go through but not the player)
+	- [x] respawn point for ghosts
 	- [ ] heal time pour les ghosts
+	- [ ] *code improvement :* move super_mode in player struct
 	- [ ] si pleusieurs ghosts eatten in the same super -> more points
 - [ ] rotation player et ghosts selon direction + scared ghosts(clignotte quand reste plus que 2sec)
 - [ ] pacman death animation
-- [ ] (animation gums)
 - [ ] Free Board mem :)
 - [ ] remake collision
 - [ ] remake pacman move
 - [ ] gestionGraphics -> a refaire
+- [ ] ghost respawn to the closest point
 - [ ] ^^^ objectif ^^^
 - [ ] vvv  bonus   vvv 
 - [ ] wall attach texture
+- [ ] (animation gums)
 - [ ] Paques Man (tete ile de Paques -> mange oeufs en chhocolat)
 - [ ] warp texture in one file
 - [ ] menu / end / win screen

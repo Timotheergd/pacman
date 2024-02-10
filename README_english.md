@@ -35,4 +35,5 @@ Each line is formed by numbers :
 |4|gum|
 |5|big Gum|
 |6|gate|
+|7|ghost respawn point|
 

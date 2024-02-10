@@ -21,12 +21,14 @@ Board initBoard(){
         .gum_list = NULL,
         .bigGum_list = NULL,
         .gate_list = NULL,
+        .ghostRespawn_list = NULL,
         .nbWall = 0,
         .nbGhost = 0,
         .nbWarp = 0,
         .nbGum = 0,
         .nbBigGum = 0,
-        .nbGate = 0
+        .nbGate = 0,
+        .nbGhostRespawn = 0
     };
 	return b;
 }
@@ -45,6 +47,11 @@ void printBoardContent(Board *board){
     printf("ghosts\n");
     for(int i=0;i<board->nbGhost;i++){
         print_Coords((board->ghost_list[i]).coords);
+    }
+
+    printf("ghosts respawn\n");
+    for(int i=0;i<board->nbGhostRespawn;i++){
+        print_Coords((board->ghostRespawn_list[i]).coords);
     }
     
     printf("gum_list\n");
@@ -78,7 +85,8 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, LoadType load_t
     3       | fantome
     4	    | gum
     5	    | big Gum
-    6       | warp
+    6       | gate
+    7       | ghost respawn point
     */
 
     // Reset the board
@@ -93,10 +101,12 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, LoadType load_t
         board->gum_list = NULL;
         board->bigGum_list = NULL;
         board->gate_list = NULL;
+        board->ghostRespawn_list = NULL;
         board->nbWall = 0;
         board->nbGum = 0;
         board->nbBigGum = 0;
         board->nbGate = 0;
+        board->nbGhostRespawn = 0;
     }
 
     int i,j = 0;
@@ -124,6 +134,20 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, LoadType load_t
                 board->nbGhost+=1;
                 board->ghost_list=(Ghost*)realloc(board->ghost_list, board->nbGhost*sizeof(Ghost));
                 (board->ghost_list)[board->nbGhost-1]=initGhost(initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT));               
+                break;
+            case GHOST_RESPAWN:
+                if(load_type==NEW || load_type==CHANGE_LEVEL){
+                    // load the respawn point
+                    board->nbGhostRespawn+=1;
+                    board->ghostRespawn_list=(GhostRespawn*)realloc(board->ghostRespawn_list, board->nbGhostRespawn*sizeof(GhostRespawn));
+                    (board->ghostRespawn_list)[board->nbGhostRespawn-1]=initGhostRespawn(initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT)); 
+                }
+                if(load_type==NEW || load_type==CHANGE_LEVEL || load_type==RELOAD){
+                    // load a ghost on it
+                    board->nbGhost+=1;
+                    board->ghost_list=(Ghost*)realloc(board->ghost_list, board->nbGhost*sizeof(Ghost));
+                    (board->ghost_list)[board->nbGhost-1]=initGhost(initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT));    
+                }    
                 break;
             case GUM:
                 if(load_type==NEW || load_type==CHANGE_LEVEL){
@@ -153,6 +177,13 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, LoadType load_t
             //     break;
             default:
                 break;
+        }
+    }
+    if(board->nbGhostRespawn>0){
+        for(int k=0; k<board->nbGhost; k++){
+            // Set respawn point to the first for now
+            // TODO : Set respawn point to the closest 
+            ((board->ghost_list)[k]).respawnPoint=((board->ghostRespawn_list)[0]).coords;
         }
     }
 }

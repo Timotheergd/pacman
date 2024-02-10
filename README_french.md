@@ -35,4 +35,5 @@ Chaque ligne est composée de plusieurs nombres :
 |4|gum|
 |5|big Gum|
 |6|barrière|
+|7|point de réaparition des fantomes|
 

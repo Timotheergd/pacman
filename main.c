@@ -24,7 +24,7 @@ int main(int argc, char *argv[]){
 	// read file
 	char level_file[50]="levels.txt";
 	char level_content[LEVEL_SIZE]="";
-	int level_number=3;
+	int level_number=8;
 	read_level(level_file, level_number, &level_content);
 	
 	// init board
@@ -94,7 +94,7 @@ int main(int argc, char *argv[]){
 				
 				if(super_time<SUPER_TIME){
 					// eat ghost
-					(board.ghost_list)[collidedGhost].coords=initCoords(9*TILE_WIDTH, 9*TILE_HEIGHT+WIN_SCORE_HEIGHT); // TEMPORARY, need better init
+					(board.ghost_list)[collidedGhost].coords=((board.ghost_list)[collidedGhost]).respawnPoint;
 					board.player.points+=GHOST_POINTS;
 				}
 				else{

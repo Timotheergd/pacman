@@ -24,12 +24,14 @@ struct Board {
 	Gum *gum_list;
 	BigGum *bigGum_list;
 	Gate *gate_list;
+	GhostRespawn *ghostRespawn_list;
     int nbWall;
     int nbGhost;
     int nbWarp;
     int nbGum;
     int nbBigGum;
 	int nbGate;
+	int nbGhostRespawn;
 };
 
 void read_level(char filename[], int level_number, char (*level_content)[]);
