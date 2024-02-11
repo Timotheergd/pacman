@@ -60,7 +60,7 @@ int main(int argc, char *argv[]){
 	Direction key_direction = IDLE;
 	bool close = false;
 	bool on_level = true;
-	time_t super_mode;
+	// time_t super_mode;
 
 	// ***** TEMP VAR / QUICK TESTS ******
 	int i=0;
@@ -74,7 +74,7 @@ int main(int argc, char *argv[]){
 		on_level=true;
 		loadBoard(&level_content, &board, load_type);
 		load_type=RELOAD;
-		super_mode = time(NULL)-(double)(SUPER_TIME+1);
+		// super_mode = time(NULL)-(double)(SUPER_TIME+1);
 		key_direction = IDLE;
 
 		while(on_level){
@@ -89,7 +89,7 @@ int main(int argc, char *argv[]){
 
 			// Check death
 			int collidedGhost = ghostCollision(board.player.coords, &board);
-			int super_time = (int)difftime(time(NULL), super_mode);
+			int super_time = (int)difftime(time(NULL), board.player.super_mode_time);
 			if(collidedGhost!=-1){
 				
 				if(super_time<SUPER_TIME){
@@ -126,9 +126,12 @@ int main(int argc, char *argv[]){
 
 			// Actions
 			eatGum(&board);
-			eatBigGum(&board, &super_mode);
+			// eatBigGum(&board, &super_mode);
+			eatBigGum(&board);
+			
 
-			printf("super mode:%d\n", (int)difftime(time(NULL), super_mode));
+			// printf("super mode:%d\n", (int)difftime(time(NULL), super_mode));
+			printf("super mode:%d\n", super_time);
 
 
 			//clear renderer

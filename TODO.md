@@ -51,7 +51,7 @@ Chaque ligne est composée de plusieurs nombres :
 	- [x] add gate (ghost can go through but not the player)
 	- [x] respawn point for ghosts
 	- [x] death time pour les ghosts
-	- [ ] *code improvement :* move super_mode in player struct
+	- [x] *code improvement :* move super_mode in player struct
 	- [ ] si pleusieurs ghosts eatten in the same super -> more points
 - [ ] rotation player et ghosts selon direction + scared ghosts(clignotte quand reste plus que 2sec)
 - [ ] pacman death animation
@@ -80,4 +80,6 @@ Chaque ligne est composée de plusieurs nombres :
 
 ### Bugs to fix
 
-- [X] Pacman direction after reloading a level
+- [x] Pacman direction after reloading a level
+- [ ] crash at the end on freeing SDL memory
+- [ ] ghost desapear on third round after eating gum ? (rare)

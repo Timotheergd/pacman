@@ -6,7 +6,8 @@ Player initPlayer(Coords c){
 		.points=0, 
 		.speed=4, 
 		.direction=IDLE,
-		.health=3
+		.health=3,
+		.super_mode_time=0
 	} ;
 	return p;
 }

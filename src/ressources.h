@@ -49,7 +49,7 @@
 #define SUPER_TIME 10
 
 #define GHOST_POINTS 200
-#define GHOST_DEATH_TIME 10
+#define GHOST_DEATH_TIME 2
 
 #define FPS 60
 

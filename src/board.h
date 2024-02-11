@@ -9,7 +9,6 @@
 #include "player.h"
 #include "wall.h"
 #include "ghost.h"
-#include "warp.h"
 #include "gum.h"
 #include "gestionGraphique.h"
 #include "gate.h"
@@ -20,14 +19,12 @@ struct Board {
 	Player player;
 	Wall *wall_list;
 	Ghost *ghost_list;
-	Warp *warp_list;
 	Gum *gum_list;
 	BigGum *bigGum_list;
 	Gate *gate_list;
 	GhostRespawn *ghostRespawn_list;
     int nbWall;
     int nbGhost;
-    int nbWarp;
     int nbGum;
     int nbBigGum;
 	int nbGate;
@@ -60,7 +57,7 @@ void renderPoints(Board *board, TTF_Font* font, SDL_Color color, SDL_Renderer *r
 
 void renderBigGum(Board *board, SDL_Texture *tex, SDL_Renderer *rend);
 
-bool eatBigGum(Board *board, time_t *super_mode);
+bool eatBigGum(Board *board);
 
 void renderGate(Board *board, SDL_Texture *tex, SDL_Renderer *rend);
 

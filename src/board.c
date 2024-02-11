@@ -17,14 +17,12 @@ Board initBoard(){
         .player=initPlayer(initCoords(-1,-1)), 
         .wall_list=NULL,
         .ghost_list = NULL,
-        .warp_list = NULL,
         .gum_list = NULL,
         .bigGum_list = NULL,
         .gate_list = NULL,
         .ghostRespawn_list = NULL,
         .nbWall = 0,
         .nbGhost = 0,
-        .nbWarp = 0,
         .nbGum = 0,
         .nbBigGum = 0,
         .nbGate = 0,
@@ -439,7 +437,8 @@ void renderBigGum(Board *board, SDL_Texture *tex, SDL_Renderer *rend){
     }
 }
 
-bool eatBigGum(Board *board, time_t *super_mode){
+bool eatBigGum(Board *board){
+// bool eatBigGum(Board *board, time_t *super_mode){
     for(int i=0; i<board->nbBigGum;i++){
         if(collision((board->player).coords, TILE_HEIGHT, TILE_WIDTH, (board->bigGum_list)[i].coords, BIGGUM_SIZE, BIGGUM_SIZE)){
             // delete the gum
@@ -448,7 +447,7 @@ bool eatBigGum(Board *board, time_t *super_mode){
             }
             board->nbBigGum--;
             // no realloc because I don't care :)
-            *super_mode=time(NULL);
+            (board->player).super_mode_time=time(NULL);
         }
     }
 }
