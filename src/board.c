@@ -274,9 +274,14 @@ bool movePlayer(Board *board, Direction direction){
 
 }
 
-void renderGhosts(Board *board, SDL_Texture *tex, SDL_Renderer *rend){
+void renderGhosts(Board *board, SDL_Texture (*(*tex)[][5]), SDL_Renderer *rend){
     for(int i=0; i<board->nbGhost;i++){
-        renderTexture(tex, rend, (board->ghost_list)[i].coords.x, (board->ghost_list)[i].coords.y, TILE_WIDTH, TILE_HEIGHT);
+        if((int)difftime(time(NULL), (board->player).super_mode_time)>SUPER_TIME)
+            // usual texture
+            renderTexture((*tex)[i][(board->ghost_list)[i].direction], rend, (board->ghost_list)[i].coords.x, (board->ghost_list)[i].coords.y, TILE_WIDTH, TILE_HEIGHT);
+        else
+            // scared texture
+            renderTexture((*tex)[4][(board->ghost_list)[i].direction], rend, (board->ghost_list)[i].coords.x, (board->ghost_list)[i].coords.y, TILE_WIDTH, TILE_HEIGHT);
     }
 }
 
