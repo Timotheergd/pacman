@@ -7,7 +7,7 @@ CC := gcc
 SRC_DIRS := ./src
 
 # set the compiler flags
-CFLAGS := `sdl2-config --libs --cflags` -lSDL2_image -lSDL2_ttf
+CFLAGS := `sdl2-config --libs --cflags` -lSDL2_image -lSDL2_ttf -lm
 
 # name of executable
 EXEC := pacman

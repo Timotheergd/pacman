@@ -124,6 +124,7 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, LoadType load_t
                     board->player=initPlayer(initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT));
                 }
                 else{
+                    (board->player).streak=0;
                     (board->player).super_mode_time=0;
                     (board->player).direction=IDLE;
                     (board->player).coords=initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT);                    
@@ -449,6 +450,7 @@ bool eatBigGum(Board *board){
             board->nbBigGum--;
             // no realloc because I don't care :)
             (board->player).super_mode_time=time(NULL);
+            (board->player).points+=BIGGUM_POINTS;
         }
     }
 }

@@ -7,6 +7,7 @@
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_ttf.h>
 #include <time.h>
+#include <math.h>
 
 #include "src/ressources.h"
 #include "src/board.h"
@@ -74,10 +75,9 @@ int main(int argc, char *argv[]){
 		loadBoard(&level_content, &board, load_type);
 		load_type=RELOAD;
 		key_direction = IDLE;
+		
 
 		while(on_level){
-
-			
 
 			// Lose check
 			if(board.player.health<=0){
@@ -96,7 +96,9 @@ int main(int argc, char *argv[]){
 					// eat ghost
 					(board.ghost_list)[collidedGhost].coords=((board.ghost_list)[collidedGhost]).respawnPoint;
 					((board.ghost_list)[collidedGhost]).death_time=time(NULL);
-					board.player.points+=GHOST_POINTS;
+					board.player.streak+=1;
+					board.player.points+=GHOST_POINTS*(int)pow(2,board.player.streak-1);
+					printf("streak:%d => g_points=%d\n", board.player.streak, GHOST_POINTS*(int)pow(2,board.player.streak-1));
 				}
 				else{
 					// death
@@ -116,6 +118,9 @@ int main(int argc, char *argv[]){
 				load_type=CHANGE_LEVEL;
 				continue;
 			}
+
+			// Reset Player streak
+			if(super_time>SUPER_TIME)	board.player.streak=0;
 
 			// Get keys / direction
 			processKeyboard(&close, &on_level, &key_direction);
