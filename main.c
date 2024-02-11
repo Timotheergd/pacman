@@ -100,7 +100,7 @@ int main(int argc, char *argv[]){
 	
 	// Ghosts Textures
 	// ghosts_tex_path[NUMBER_OF_GHOSTS(4+scared)][DIRECTION][]
-	char ghosts_tex_path[4+1][5][100] = {
+	char ghosts_tex_path[4+2][NB_DIRECTION][100] = {
 		{	// red
 			"assets/textures/ghost/ghost_red_right.png",
 			"assets/textures/ghost/ghost_red_left.png",
@@ -108,38 +108,46 @@ int main(int argc, char *argv[]){
 			"assets/textures/ghost/ghost_red_down.png",
 			"assets/textures/ghost/ghost_red_right.png"
 		},
-		{	// red
+		{	// orange
 			"assets/textures/ghost/ghost_orange_right.png",
 			"assets/textures/ghost/ghost_orange_left.png",
 			"assets/textures/ghost/ghost_orange_up.png",
 			"assets/textures/ghost/ghost_orange_down.png",
 			"assets/textures/ghost/ghost_orange_right.png"
 		},
-		{	// red
+		{	// pink
 			"assets/textures/ghost/ghost_pink_right.png",
 			"assets/textures/ghost/ghost_pink_left.png",
 			"assets/textures/ghost/ghost_pink_up.png",
 			"assets/textures/ghost/ghost_pink_down.png",
 			"assets/textures/ghost/ghost_pink_right.png"
 		},
-		{	// red
+		{	// green
 			"assets/textures/ghost/ghost_green_right.png",
 			"assets/textures/ghost/ghost_green_left.png",
 			"assets/textures/ghost/ghost_green_up.png",
 			"assets/textures/ghost/ghost_green_down.png",
 			"assets/textures/ghost/ghost_green_right.png"
 		},
-		{	// red
+		// SCARED
+		{	// blue
 			"assets/textures/ghost/ghost_blue_scared_right.png",
 			"assets/textures/ghost/ghost_blue_scared_left.png",
 			"assets/textures/ghost/ghost_blue_scared_up.png",
 			"assets/textures/ghost/ghost_blue_scared_down.png",
 			"assets/textures/ghost/ghost_blue_scared_right.png"
+		},
+		{	// white
+			"assets/textures/ghost/ghost_white_scared_right.png",
+			"assets/textures/ghost/ghost_white_scared_left.png",
+			"assets/textures/ghost/ghost_white_scared_up.png",
+			"assets/textures/ghost/ghost_white_scared_down.png",
+			"assets/textures/ghost/ghost_white_scared_right.png"
 		}
 	};
-	SDL_Texture* ghosts_tex[5][5];
-	for(int i=0; i<5;i++){
-		for(int j=0;j<5;j++){
+	SDL_Texture* ghosts_tex[6][NB_DIRECTION];
+	for(int i=0; i<6;i++){
+		for(int j=0;j<NB_DIRECTION;j++){
 			ghosts_tex[i][j] = loadTexture(ghosts_tex_path[i][j], rend);
 		}
 	}
@@ -164,7 +172,7 @@ int main(int argc, char *argv[]){
 	while(!close){
 		SDL_Event event;
 
-		printf("HERE WE GO AGAIN !\n");
+		// printf("HERE WE GO AGAIN !\n");
 	
 		// Reset values
 		on_level=true;
