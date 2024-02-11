@@ -36,23 +36,23 @@ Chaque ligne est composée de plusieurs nombres :
 
 ## TODO
 
-- [ ] basic game (ghost direction aléatoire)
-	- [X] import level
-	- [X] init every objects of the level
-	- [X] Setup SDL
-	- [X] move player
-	- [X] collision with walls (% si sort de l'écran)
-	- [X] ghost (random path)
-	- [X] add ghost collision
-	- [X] gum
-	- [X] print score
-	- [x] win condition
-	- [x] biggum + eat ghost
-	- [x] add gate (ghost can go through but not the player)
-	- [x] respawn point for ghosts
-	- [x] death time pour les ghosts
-	- [x] si pleusieurs ghosts eatten in the same super -> more points
-	- [ ] move super_mode in ghost struct (if eaten, not scared anymore)
+- [x] basic game (ghost direction aléatoire)
+  - [X] import level
+  - [X] init every objects of the level
+  - [X] Setup SDL
+  - [X] move player
+  - [X] collision with walls (% si sort de l'écran)
+  - [X] ghost (random path)
+  - [X] add ghost collision
+  - [X] gum
+  - [X] print score
+  - [x] win condition
+  - [x] biggum + eat ghost
+  - [x] add gate (ghost can go through but not the player)
+  - [x] respawn point for ghosts
+  - [x] death time pour les ghosts
+  - [x] si pleusieurs ghosts eatten in the same super -> more points
+  - [x] move super_mode in ghost struct (if eaten, not scared anymore)
 - [x] rotation player + anim bouche 
 - [x] ghosts rotation selon direction + scared ghosts
 - [ ] ghosts clignotte quand reste plus que 2sec
@@ -66,7 +66,7 @@ Chaque ligne est composée de plusieurs nombres :
 - [ ] vvv  bonus   vvv 
 - [ ] wall attach texture
 - [ ] (animation gums)
-- [ ] Paques Man (tete ile de Paques -> mange oeufs en chhocolat)
+- [ ] Paques Man (tete ile de Paques -> mange oeufs en chocolat)
 - [ ] warp texture in one file
 - [ ] menu / end / win screen
 - [ ] Credits

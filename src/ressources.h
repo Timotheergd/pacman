@@ -67,7 +67,7 @@ struct Coords {
 typedef enum Direction Direction;
 enum Direction
 {
-	RIGHT, LEFT, UP, DOWN, IDLE
+	RIGHT, LEFT, UP, DOWN, IDLE, NB_DIRECTION
 };
 
 typedef enum Entity Entity;

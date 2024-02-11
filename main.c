@@ -9,7 +9,6 @@
 #include <time.h>
 #include <math.h>
 #include <sys/time.h>
-
 #include "src/ressources.h"
 #include "src/board.h"
 #include "src/gestionGraphique.h"
@@ -17,7 +16,6 @@
 #include "src/player.h"
 #include "src/ghost.h"
 #include "src/gate.h"
-// #include "warp.h" // Waiting for a solution...
 #include "src/gum.h"
 
 int main(int argc, char *argv[]){
@@ -36,7 +34,7 @@ int main(int argc, char *argv[]){
 	load_type=RELOAD;
 	
 	// TEST
-	printf("level %d:%s\n",level_number, level_content);
+	// printf("level %d:%s\n",level_number, level_content);
 	// printBoardContent(&board);
 
 	/// ********** SDL INIT **********
@@ -50,7 +48,7 @@ int main(int argc, char *argv[]){
 
 	// Player Textures
 	// player_tex_path[DIRECTION][PLAYER_TEXTURES_PER_DIRECTION_ANIMATION][]
-	char player_tex_path[5][PLAYER_TEXTURES_PER_DIRECTION_ANIMATION][100] = {
+	char player_tex_path[NB_DIRECTION][PLAYER_TEXTURES_PER_DIRECTION_ANIMATION][100] = {
 		
 		{	// right
 			"assets/textures/pacman/pacman_right_close.png",
@@ -187,13 +185,14 @@ int main(int argc, char *argv[]){
 
 			// Check death
 			int collidedGhost = ghostCollision(board.player.coords, &board);
-			int super_time = (int)difftime(time(NULL), board.player.super_mode_time);
+			// int super_time = (int)difftime(time(NULL), board.player.super_mode_time);
 			if(collidedGhost!=-1){
 				
-				if(super_time<SUPER_TIME){
+				if((int)difftime(time(NULL), ((board.ghost_list)[collidedGhost]).super_mode_time)<SUPER_TIME){
 					// eat ghost
 					(board.ghost_list)[collidedGhost].coords=((board.ghost_list)[collidedGhost]).respawnPoint;
 					((board.ghost_list)[collidedGhost]).death_time=time(NULL);
+					((board.ghost_list)[collidedGhost]).super_mode_time=0;
 					board.player.streak+=1;
 					board.player.points+=GHOST_POINTS*(int)pow(2,board.player.streak-1);
 				}
@@ -216,9 +215,6 @@ int main(int argc, char *argv[]){
 				continue;
 			}
 
-			// Reset Player streak
-			if(super_time>SUPER_TIME)	board.player.streak=0;
-
 			// Get keys / direction
 			processKeyboard(&close, &on_level, &key_direction);
 
@@ -227,9 +223,20 @@ int main(int argc, char *argv[]){
 			moveGhosts(&board);
 
 			// Actions
+			// Reset Player streak
+			int nb_ghost_eatable=0;
+			for(int i=0;i<4;i++){// TODO : MAKE A FUNCTION
+				if((int)difftime(time(NULL), ((board.ghost_list)[i]).super_mode_time)<SUPER_TIME){
+					nb_ghost_eatable++;
+				}
+			}
+			if(nb_ghost_eatable==0){
+				board.player.streak=0;
+			}
+			
 			eatGum(&board);
 			eatBigGum(&board);
-			printf("super mode:%d\n", super_time);
+			// printf("super mode:%d\n", super_time);
 
 			//clear renderer
 			clearRenderer(rend);
@@ -262,7 +269,7 @@ int main(int argc, char *argv[]){
 		}
 	}
 	// SDL_Delay(500);
-	printf("quit\n");
-	QuitSDL(win, rend);
+	printf("score:%d\nquit\n", board.player.points);
+	// QuitSDL(win, rend);
 	return 0;
 }

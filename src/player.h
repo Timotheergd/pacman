@@ -11,7 +11,6 @@ struct Player {
 	int speed;
 	Direction direction;
 	int health;
-	time_t super_mode_time;
 	int streak;
 };
 

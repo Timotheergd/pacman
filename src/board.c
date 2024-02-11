@@ -125,7 +125,6 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, LoadType load_t
                 }
                 else{
                     (board->player).streak=0;
-                    (board->player).super_mode_time=0;
                     (board->player).direction=IDLE;
                     (board->player).coords=initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT);                    
                 }   
@@ -276,7 +275,7 @@ bool movePlayer(Board *board, Direction direction){
 
 void renderGhosts(Board *board, SDL_Texture (*(*tex)[][5]), SDL_Renderer *rend){
     for(int i=0; i<board->nbGhost;i++){
-        if((int)difftime(time(NULL), (board->player).super_mode_time)>SUPER_TIME)
+        if((int)difftime(time(NULL), ((board->ghost_list)[i]).super_mode_time)>SUPER_TIME)
             // usual texture
             renderTexture((*tex)[i][(board->ghost_list)[i].direction], rend, (board->ghost_list)[i].coords.x, (board->ghost_list)[i].coords.y, TILE_WIDTH, TILE_HEIGHT);
         else
@@ -454,7 +453,10 @@ bool eatBigGum(Board *board){
             }
             board->nbBigGum--;
             // no realloc because I don't care :)
-            (board->player).super_mode_time=time(NULL);
+            
+            for(int g=0;g<(board->nbGhost);g++){
+                ((board->ghost_list)[g]).super_mode_time=time(NULL);
+            }
             (board->player).points+=BIGGUM_POINTS;
         }
     }

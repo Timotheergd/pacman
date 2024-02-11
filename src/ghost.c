@@ -6,7 +6,8 @@ Ghost initGhost(Coords c){
 		.speed=3,
 		.direction=IDLE,
 		.death_time=0,
-		.respawnPoint=c
+		.respawnPoint=c,
+		.super_mode_time=0,
 	};
 	return g;
 }
