@@ -53,6 +53,9 @@
 
 #define FPS 60
 
+#define PLAYER_TEXTURES_PER_DIRECTION_ANIMATION 6
+#define NB_FRAME_PER_SEC_ANIMATION 12
+
 // Additional Structs / Enums
 
 typedef struct Coords Coords;

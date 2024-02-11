@@ -51,9 +51,10 @@ Chaque ligne est composée de plusieurs nombres :
 	- [x] add gate (ghost can go through but not the player)
 	- [x] respawn point for ghosts
 	- [x] death time pour les ghosts
-	- [x] *code improvement :* move super_mode in player struct
-	- [ ] si pleusieurs ghosts eatten in the same super -> more points
-- [ ] rotation player et ghosts selon direction + scared ghosts(clignotte quand reste plus que 2sec)
+	- [x] si pleusieurs ghosts eatten in the same super -> more points
+	- [ ] move super_mode in ghost struct (if eaten, not scared anymore)
+- [x] rotation player + anim bouche 
+- [ ] ghosts rotation selon direction + scared ghosts(clignotte quand reste plus que 2sec)
 - [ ] pacman death animation
 - [ ] Free Board mem :)
 - [ ] remake collision
