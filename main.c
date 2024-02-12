@@ -297,8 +297,6 @@ int main(int argc, char *argv[]){
 			// SDL_Delay(500);
 		}
 	}
-	// SDL_Delay(500);
 	printf("score:%d\nquit\n", board.player.points);
-	// QuitSDL(win, rend);
 	return 0;
 }

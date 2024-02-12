@@ -475,3 +475,12 @@ void renderGate(Board *board, SDL_Texture *tex, SDL_Renderer *rend){
         renderTexture(tex, rend, (board->gate_list)[i].coords.x, (board->gate_list)[i].coords.y, TILE_WIDTH, TILE_HEIGHT);
     }
 }
+
+void freeBoard(Board *board){
+    free(board->wall_list);
+    free(board->ghost_list);
+    free(board->gum_list);
+    free(board->bigGum_list);
+    free(board->gate_list);
+    free(board->ghostRespawn_list);
+}

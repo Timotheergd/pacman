@@ -61,4 +61,6 @@ bool eatBigGum(Board *board);
 
 void renderGate(Board *board, SDL_Texture *tex, SDL_Renderer *rend);
 
+void freeBoard(Board *board);
+
 #endif
