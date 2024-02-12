@@ -151,13 +151,32 @@ int main(int argc, char *argv[]){
 			ghosts_tex[i][j] = loadTexture(ghosts_tex_path[i][j], rend);
 		}
 	}
-	SDL_Texture* ghost_tex = loadTexture("assets/textures/ghost/ghost_red_right.png", rend);
-	SDL_Texture* ghost_scared_tex = loadTexture("assets/textures/ghost/ghost_blue_right.png", rend);
+	
+	// Player death animation textures
+	char player_death_tex_path[PLAYER_NB_DEATH_TEXTURE_ANIMATION][100] = {
+		"assets/textures/pacman/death/pacman_death01.png",
+		"assets/textures/pacman/death/pacman_death02.png",
+		"assets/textures/pacman/death/pacman_death03.png",
+		"assets/textures/pacman/death/pacman_death04.png",
+		"assets/textures/pacman/death/pacman_death05.png",
+		"assets/textures/pacman/death/pacman_death06.png",
+		"assets/textures/pacman/death/pacman_death07.png",
+		"assets/textures/pacman/death/pacman_death08.png",
+		"assets/textures/pacman/death/pacman_death09.png",
+		"assets/textures/pacman/death/pacman_death10.png",
+	};
+	SDL_Texture* player_death_tex[PLAYER_NB_DEATH_TEXTURE_ANIMATION];
+	for(int i=0;i<PLAYER_NB_DEATH_TEXTURE_ANIMATION;i++){
+		player_death_tex[i] = loadTexture(player_death_tex_path[i], rend);
+	}
+	
 
 	SDL_Texture* wall_tex = loadTexture("assets/textures/wall.png", rend);
 	SDL_Texture* gum_tex = loadTexture("assets/textures/gum/gum.png", rend);
 	SDL_Texture* biggum_tex = loadTexture("assets/textures/gum/biggum.png", rend);
 	SDL_Texture* gate_tex = loadTexture("assets/textures/red_gate.png", rend);
+
+	SDL_Texture* blank_tex = loadTexture("assets/textures/blank.png", rend);
 
 	// *********** FONTS **********
 	TTF_Init();
@@ -193,7 +212,6 @@ int main(int argc, char *argv[]){
 
 			// Check death
 			int collidedGhost = ghostCollision(board.player.coords, &board);
-			// int super_time = (int)difftime(time(NULL), board.player.super_mode_time);
 			if(collidedGhost!=-1){
 				
 				if((int)difftime(time(NULL), ((board.ghost_list)[collidedGhost]).super_mode_time)<SUPER_TIME){
@@ -209,6 +227,14 @@ int main(int argc, char *argv[]){
 					board.player.health--;
 					on_level=false;
 					printf("TODO : PACMAN DEATH ANIMATION\n");
+					updateDisplay(rend);
+					// renser death animation
+					for(int i=0;i<PLAYER_NB_DEATH_TEXTURE_ANIMATION;i++){
+						renderTexture(blank_tex, rend, board.player.coords.x, board.player.coords.y, TILE_WIDTH, TILE_HEIGHT);
+						renderTexture(player_death_tex[i], rend, board.player.coords.x, board.player.coords.y, TILE_WIDTH, TILE_HEIGHT);
+						updateDisplay(rend);
+						SDL_Delay(100);
+					}
 					continue;
 				}	
 			}
@@ -259,12 +285,7 @@ int main(int argc, char *argv[]){
 			renderTexture(player_tex[board.player.direction][(abs((stop.tv_usec - start.tv_usec)/(1000000/NB_FRAME_PER_SEC_ANIMATION)))%PLAYER_TEXTURES_PER_DIRECTION_ANIMATION], rend, board.player.coords.x, board.player.coords.y, TILE_WIDTH, TILE_HEIGHT); // render the player
 			
 			// Ghost
-			// if(super_time<SUPER_TIME){
-			// 	// renderGhosts(&board, ghost_scared_tex, rend);
-			// }
-			// else{
-				renderGhosts(&board, &ghosts_tex, rend);
-			// }
+			renderGhosts(&board, &ghosts_tex, rend);
 			
 			renderPlayerHealth(&board, player_tex[0][1], rend);
 			renderPoints(&board, points_font, White, rend);

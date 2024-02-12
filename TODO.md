@@ -55,8 +55,8 @@ Chaque ligne est composée de plusieurs nombres :
   - [x] move super_mode in ghost struct (if eaten, not scared anymore)
 - [x] rotation player + anim bouche 
 - [x] ghosts rotation selon direction + scared ghosts
-- [x] ghosts clignotte quand reste plus que 2sec
-- [ ] pacman death animation
+- [x] ghosts clignotte quand reste plus que 3sec
+- [x] pacman death animation
 - [ ] Free Board mem :)
 - [ ] count level
 - [ ] remake collision
