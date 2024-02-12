@@ -7,7 +7,7 @@ Ghost initGhost(Coords c){
 		.direction=IDLE,
 		.death_time=0,
 		.respawnPoint=c,
-		.super_mode_time=0,
+		.vulnerable_time=0,
 	};
 	return g;
 }

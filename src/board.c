@@ -273,19 +273,19 @@ bool movePlayer(Board *board, Direction direction){
 
 }
 
-void renderGhosts(Board *board, SDL_Texture (*(*tex)[][5]), SDL_Renderer *rend){
+void renderGhosts(Board *board, SDL_Texture (*(*tex)[][5]), SDL_Renderer *rend, int nb_usec_since_launch){
     for(int i=0; i<board->nbGhost;i++){
-        int super_time_duration = (int)difftime(time(NULL), ((board->ghost_list)[i]).super_mode_time);
+        int super_time_duration = (int)difftime(time(NULL), ((board->ghost_list)[i]).vulnerable_time);
         if(super_time_duration>SUPER_TIME)
             // usual texture
             renderTexture((*tex)[i][(board->ghost_list)[i].direction], rend, (board->ghost_list)[i].coords.x, (board->ghost_list)[i].coords.y, TILE_WIDTH, TILE_HEIGHT);
         else{
             // scared texture
-            if(SUPER_TIME-super_time_duration>3){
+            if(SUPER_TIME-super_time_duration>GHOST_BLINK_TIME){
                 renderTexture((*tex)[4][(board->ghost_list)[i].direction], rend, (board->ghost_list)[i].coords.x, (board->ghost_list)[i].coords.y, TILE_WIDTH, TILE_HEIGHT);
             }
             else{
-                renderTexture((*tex)[(super_time_duration%2)+4][(board->ghost_list)[i].direction], rend, (board->ghost_list)[i].coords.x, (board->ghost_list)[i].coords.y, TILE_WIDTH, TILE_HEIGHT);
+                renderTexture((*tex)[((nb_usec_since_launch/(1000000/GHOST_BLINK_NB_FRAME_PER_SEC))%2)+4][(board->ghost_list)[i].direction], rend, (board->ghost_list)[i].coords.x, (board->ghost_list)[i].coords.y, TILE_WIDTH, TILE_HEIGHT);
             }
             
         }
@@ -463,7 +463,7 @@ bool eatBigGum(Board *board){
             // no realloc because I don't care :)
 
             for(int g=0;g<(board->nbGhost);g++){
-                ((board->ghost_list)[g]).super_mode_time=time(NULL);
+                ((board->ghost_list)[g]).vulnerable_time=time(NULL);
             }
             (board->player).points+=BIGGUM_POINTS;
         }

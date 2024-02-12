@@ -57,14 +57,15 @@ Chaque ligne est composée de plusieurs nombres :
 - [x] ghosts rotation selon direction + scared ghosts
 - [x] ghosts clignotte quand reste plus que 3sec
 - [x] pacman death animation
+- [x] ghosts blink more fluently
 - [ ] Free Board mem :)
 - [ ] count level
 - [ ] remake collision
 - [ ] remake pacman move
 - [ ] gestionGraphics -> a refaire
-- [ ] ghost respawn to the closest point
 - [ ] ^^^ objectif ^^^
 - [ ] vvv  bonus   vvv 
+- [ ] ghost respawn to the closest point
 - [ ] wall attach texture
 - [ ] (animation gums)
 - [ ] Paques Man (tete ile de Paques -> mange oeufs en chocolat)
@@ -85,4 +86,3 @@ Chaque ligne est composée de plusieurs nombres :
 
 - [x] Pacman direction after reloading a level
 - [ ] crash at the end on freeing SDL memory
-- [ ] ghost desapear on third round after eating gum ? (rare)

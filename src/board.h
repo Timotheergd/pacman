@@ -46,7 +46,7 @@ int ghostCollision(Coords coords, Board *board);
 bool movePlayer(Board *board, Direction direction);
 void moveGhosts(Board *board);
 
-void renderGhosts(Board *board, SDL_Texture (*(*tex)[][5]), SDL_Renderer *rend);
+void renderGhosts(Board *board, SDL_Texture (*(*tex)[][5]), SDL_Renderer *rend, int nb_usec_since_launch);
 
 void renderPlayerHealth(Board *board, SDL_Texture *tex, SDL_Renderer *rend);
 

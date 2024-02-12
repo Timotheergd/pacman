@@ -11,7 +11,7 @@ struct Ghost {
 	Direction direction;
 	time_t death_time;
 	Coords respawnPoint;
-	time_t super_mode_time;
+	time_t vulnerable_time;
 };
 Ghost initGhost();
 

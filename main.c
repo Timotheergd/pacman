@@ -214,11 +214,11 @@ int main(int argc, char *argv[]){
 			int collidedGhost = ghostCollision(board.player.coords, &board);
 			if(collidedGhost!=-1){
 				
-				if((int)difftime(time(NULL), ((board.ghost_list)[collidedGhost]).super_mode_time)<SUPER_TIME){
+				if((int)difftime(time(NULL), ((board.ghost_list)[collidedGhost]).vulnerable_time)<SUPER_TIME){
 					// eat ghost
 					(board.ghost_list)[collidedGhost].coords=((board.ghost_list)[collidedGhost]).respawnPoint;
 					((board.ghost_list)[collidedGhost]).death_time=time(NULL);
-					((board.ghost_list)[collidedGhost]).super_mode_time=0;
+					((board.ghost_list)[collidedGhost]).vulnerable_time=0;
 					board.player.streak+=1;
 					board.player.points+=GHOST_POINTS*(int)pow(2,board.player.streak-1);
 				}
@@ -226,7 +226,6 @@ int main(int argc, char *argv[]){
 					// death
 					board.player.health--;
 					on_level=false;
-					printf("TODO : PACMAN DEATH ANIMATION\n");
 					updateDisplay(rend);
 					// renser death animation
 					for(int i=0;i<PLAYER_NB_DEATH_TEXTURE_ANIMATION;i++){
@@ -260,7 +259,7 @@ int main(int argc, char *argv[]){
 			// Reset Player streak
 			int nb_ghost_eatable=0;
 			for(int i=0;i<4;i++){// TODO : MAKE A FUNCTION
-				if((int)difftime(time(NULL), ((board.ghost_list)[i]).super_mode_time)<SUPER_TIME){
+				if((int)difftime(time(NULL), ((board.ghost_list)[i]).vulnerable_time)<SUPER_TIME){
 					nb_ghost_eatable++;
 				}
 			}
@@ -282,10 +281,11 @@ int main(int argc, char *argv[]){
 			
 			// Player
 			gettimeofday(&stop, NULL);
-			renderTexture(player_tex[board.player.direction][(abs((stop.tv_usec - start.tv_usec)/(1000000/NB_FRAME_PER_SEC_ANIMATION)))%PLAYER_TEXTURES_PER_DIRECTION_ANIMATION], rend, board.player.coords.x, board.player.coords.y, TILE_WIDTH, TILE_HEIGHT); // render the player
+			int nb_usec_since_launch = abs(stop.tv_usec - start.tv_usec);
+			renderTexture(player_tex[board.player.direction][(nb_usec_since_launch/(1000000/PLAYER_MOVE_NB_FRAME_PER_SEC))%PLAYER_TEXTURES_PER_DIRECTION_ANIMATION], rend, board.player.coords.x, board.player.coords.y, TILE_WIDTH, TILE_HEIGHT); // render the player
 			
 			// Ghost
-			renderGhosts(&board, &ghosts_tex, rend);
+			renderGhosts(&board, &ghosts_tex, rend, nb_usec_since_launch);
 			
 			renderPlayerHealth(&board, player_tex[0][1], rend);
 			renderPoints(&board, points_font, White, rend);
