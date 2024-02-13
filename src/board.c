@@ -156,6 +156,8 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, LoadType load_t
                 else{
                     // move the ghost to the initial position
                     board->nbGhost+=1;
+                    (board->ghost_list)[board->nbGhost-1].vulnerable_time=0;
+                    (board->ghost_list)[board->nbGhost-1].death_time=0;
                     (board->ghost_list)[board->nbGhost-1].coords=initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT);
                 } 
                 break;
