@@ -64,7 +64,7 @@ Chaque ligne est composée de plusieurs nombres :
 - [x] increase difficulty over level
 - [ ] remake collision
 - [ ] remake pacman move
-- [ ] gestionGraphics -> a refaire
+- [x] gestionGraphics -> a refaire
 - [x] CLEAN CODE
 - [ ] ^^^ objectif ^^^
 - [ ] vvv  bonus   vvv 

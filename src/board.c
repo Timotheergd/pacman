@@ -371,7 +371,6 @@ void moveGhosts(Board *board){
         for(int j=0; j<4;j++){
             if(j!=opositeDirection(((board->ghost_list)[i]).direction)){ // Do not consider going back for now
                 if(!wallCollision(incrCoords(((board->ghost_list)[i]).coords, j, ((board->ghost_list)[i]).speed), board) && !((time(NULL)-((board->ghost_list)[i]).death_time)<GHOST_DEATH_TIME && gateCollision(incrCoords(((board->ghost_list)[i]).coords, j, ((board->ghost_list)[i]).speed), board))){
-                // if(!wallCollision(incrCoords(((board->ghost_list)[i]).coords, j, ((board->ghost_list)[i]).speed), board)){
                     nb_available_direction++;
                     available_direction=(Direction*)realloc(available_direction, nb_available_direction*sizeof(Direction));
                     (available_direction)[nb_available_direction-1]=j;
@@ -393,7 +392,7 @@ void moveGhosts(Board *board){
             if(straight_available){
                 moveAGhost(board, i);
                 continue;
-            } // end if(straight_available)
+            }
             else{
                 // Try to go back
                 ((board->ghost_list)[i]).direction = opositeDirection(((board->ghost_list)[i]).direction);
