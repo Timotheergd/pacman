@@ -89,7 +89,7 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, LoadType load_t
 
     // Reset the board
     
-    board->ghost_list = NULL;
+    
     board->nbGhost = 0;
     // board->warp_list = NULL;
     // board->nbWarp = 0;
@@ -105,6 +105,9 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, LoadType load_t
         board->nbBigGum = 0;
         board->nbGate = 0;
         board->nbGhostRespawn = 0;
+    }
+    if(load_type==NEW){
+        board->ghost_list = NULL;
     }
 
     int i,j = 0;
@@ -129,11 +132,6 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, LoadType load_t
                     (board->player).coords=initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT);                    
                 }   
                 break;
-            case GHOST:
-                board->nbGhost+=1;
-                board->ghost_list=(Ghost*)realloc(board->ghost_list, board->nbGhost*sizeof(Ghost));
-                (board->ghost_list)[board->nbGhost-1]=initGhost(initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT));               
-                break;
             case GHOST_RESPAWN:
                 if(load_type==NEW || load_type==CHANGE_LEVEL){
                     // load the respawn point
@@ -141,12 +139,25 @@ Board loadBoard(char (*level_content)[LEVEL_SIZE], Board *board, LoadType load_t
                     board->ghostRespawn_list=(GhostRespawn*)realloc(board->ghostRespawn_list, board->nbGhostRespawn*sizeof(GhostRespawn));
                     (board->ghostRespawn_list)[board->nbGhostRespawn-1]=initGhostRespawn(initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT)); 
                 }
-                if(load_type==NEW || load_type==CHANGE_LEVEL || load_type==RELOAD){
-                    // load a ghost on it
+                // if(load_type==NEW || load_type==CHANGE_LEVEL || load_type==RELOAD){
+                //     // load a ghost on it
+                //     board->nbGhost+=1;
+                //     board->ghost_list=(Ghost*)realloc(board->ghost_list, board->nbGhost*sizeof(Ghost));
+                //     (board->ghost_list)[board->nbGhost-1]=initGhost(initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT));    
+                // }    
+                // break;
+            case GHOST:
+                if(load_type==NEW){
+                    // create a new ghost
                     board->nbGhost+=1;
                     board->ghost_list=(Ghost*)realloc(board->ghost_list, board->nbGhost*sizeof(Ghost));
-                    (board->ghost_list)[board->nbGhost-1]=initGhost(initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT));    
-                }    
+                    (board->ghost_list)[board->nbGhost-1]=initGhost(initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT));   
+                }
+                else{
+                    // move the ghost to the initial position
+                    board->nbGhost+=1;
+                    (board->ghost_list)[board->nbGhost-1].coords=initCoords(i*TILE_WIDTH,j*TILE_HEIGHT+WIN_SCORE_HEIGHT);
+                } 
                 break;
             case GUM:
                 if(load_type==NEW || load_type==CHANGE_LEVEL){
@@ -312,7 +323,7 @@ bool moveAGhost(Board *board, int i){
             }
         }
         align_speed--;
-    }while(align_speed>1);
+    }while(align_speed>0);
 
     // if intersection not in speed range, move
     int speed = ((board->ghost_list)[i]).speed;
@@ -490,4 +501,10 @@ void renderLevel(Board *board, TTF_Font* font, SDL_Color color, SDL_Renderer *re
     sprintf(buffer, "level : %d\n", level);
     SDL_Texture* level_tex = loadText(buffer, font, color, rend);
     renderTexture(level_tex, rend, OFFSET+2*WIN_WIDTH/3, OFFSET, WIN_WIDTH/3, WIN_SCORE_HEIGHT/2);
+}
+
+void allGhostIncrSpeed(Board *board, int speed_incr){
+    for(int i=0;i<board->nbGhost;i++){
+        ((board->ghost_list)[i]).speed+=speed_incr;
+    }
 }

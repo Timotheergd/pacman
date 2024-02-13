@@ -65,4 +65,6 @@ void freeBoard(Board *board);
 
 void renderLevel(Board *board, TTF_Font* font, SDL_Color color, SDL_Renderer *rend, int level);
 
+void allGhostIncrSpeed(Board *board, int speed_incr);
+
 #endif

@@ -191,7 +191,6 @@ int main(int argc, char *argv[]){
 
 	while(!close){
 		SDL_Event event;
-
 		// printf("HERE WE GO AGAIN !\n");
 	
 		// Reset values
@@ -202,7 +201,6 @@ int main(int argc, char *argv[]){
 				
 
 		while(on_level){
-
 			// Check lose
 			if(board.player.health<=0){
 				// Exit game 
@@ -247,6 +245,8 @@ int main(int argc, char *argv[]){
 				on_level=false;
 				load_type=CHANGE_LEVEL;
 				level++;
+				// increase speed every 5 level
+				if(level%5==0) allGhostIncrSpeed(&board, 1);
 				continue;
 			}
 
@@ -297,7 +297,7 @@ int main(int argc, char *argv[]){
 			// update display
 			updateDisplay(rend);
 			
-			// SDL_Delay(500);
+			// SDL_Delay(200);
 		}
 	}
 	printf("score:%d\nquit\n", board.player.points);

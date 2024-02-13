@@ -59,8 +59,9 @@ Chaque ligne est composée de plusieurs nombres :
 - [x] pacman death animation
 - [x] ghosts blink more fluently
 - [ ] Free Board mem :)
-- [ ] count level
-- [ ] increase difficulty over level
+- [x] (create function Free Board mem)
+- [x] count level
+- [x] increase difficulty over level
 - [ ] remake collision
 - [ ] remake pacman move
 - [ ] gestionGraphics -> a refaire
