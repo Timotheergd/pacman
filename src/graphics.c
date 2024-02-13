@@ -1,10 +1,10 @@
-#include "gestionGraphique.h"
+#include "graphics.h"
 
 
 void initSDL(){
 if(SDL_Init(SDL_INIT_VIDEO) < 0)  // initialisation de la SDL
     {
-       printf("Erreur d'initialisation de la SDL : %s", SDL_GetError());
+       printf("Error init SDL : %s", SDL_GetError());
        SDL_Quit();
     }
 }

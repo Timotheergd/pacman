@@ -10,7 +10,7 @@
 #include "wall.h"
 #include "ghost.h"
 #include "gum.h"
-#include "gestionGraphique.h"
+#include "graphics.h"
 #include "gate.h"
 
 // store every objects of the map

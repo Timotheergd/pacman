@@ -11,7 +11,7 @@
 #include <sys/time.h>
 #include "src/ressources.h"
 #include "src/board.h"
-#include "src/gestionGraphique.h"
+#include "src/graphics.h"
 #include "src/wall.h"
 #include "src/player.h"
 #include "src/ghost.h"
