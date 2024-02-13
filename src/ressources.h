@@ -46,7 +46,7 @@
 #define BIGGUM_SIZE 20
 #define BIGGUM_OFFSET (TILE_HEIGHT-BIGGUM_SIZE)/2
 
-#define SUPER_TIME 10
+#define SUPER_TIME 7
 
 #define GHOST_POINTS 200
 #define GHOST_DEATH_TIME 2
@@ -55,7 +55,7 @@
 
 #define FPS 60
 
-#define PLAYER_TEXTURES_PER_DIRECTION_ANIMATION 6
+#define PLAYER_NB_TEXTURES_PER_DIRECTION_ANIMATION 6
 #define PLAYER_NB_DEATH_TEXTURE_ANIMATION 10
 #define PLAYER_MOVE_NB_FRAME_PER_SEC 12
 
@@ -95,7 +95,6 @@ void print_Coords(Coords c);
 Coords incrCoords(Coords coords, Direction dir, int speed);
 
 bool collision(Coords coords1, int height1, int width1, Coords coords2, int height2, int width2);
-// bool opositeDirection(Direction d1, Direction d2);
 Direction opositeDirection(Direction dir);
 void relativeRightLeftDir(Direction dir, Direction *relRight, Direction *relLeft);
 

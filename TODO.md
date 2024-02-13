@@ -65,6 +65,7 @@ Chaque ligne est composée de plusieurs nombres :
 - [ ] remake collision
 - [ ] remake pacman move
 - [ ] gestionGraphics -> a refaire
+- [x] CLEAN CODE
 - [ ] ^^^ objectif ^^^
 - [ ] vvv  bonus   vvv 
 - [ ] ghost respawn to the closest point
