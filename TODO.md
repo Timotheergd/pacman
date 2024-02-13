@@ -60,6 +60,7 @@ Chaque ligne est composée de plusieurs nombres :
 - [x] ghosts blink more fluently
 - [ ] Free Board mem :)
 - [ ] count level
+- [ ] increase difficulty over level
 - [ ] remake collision
 - [ ] remake pacman move
 - [ ] gestionGraphics -> a refaire

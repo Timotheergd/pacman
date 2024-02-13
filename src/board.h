@@ -63,4 +63,6 @@ void renderGate(Board *board, SDL_Texture *tex, SDL_Renderer *rend);
 
 void freeBoard(Board *board);
 
+void renderLevel(Board *board, TTF_Font* font, SDL_Color color, SDL_Renderer *rend, int level);
+
 #endif

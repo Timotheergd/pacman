@@ -484,3 +484,10 @@ void freeBoard(Board *board){
     free(board->gate_list);
     free(board->ghostRespawn_list);
 }
+
+void renderLevel(Board *board, TTF_Font* font, SDL_Color color, SDL_Renderer *rend, int level){
+    char buffer[50];
+    sprintf(buffer, "level : %d\n", level);
+    SDL_Texture* level_tex = loadText(buffer, font, color, rend);
+    renderTexture(level_tex, rend, OFFSET+2*WIN_WIDTH/3, OFFSET, WIN_WIDTH/3, WIN_SCORE_HEIGHT/2);
+}

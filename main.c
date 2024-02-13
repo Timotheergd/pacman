@@ -187,6 +187,7 @@ int main(int argc, char *argv[]){
 	Direction key_direction = IDLE;
 	bool close = false;
 	bool on_level = true;
+	int level = 1;
 
 	while(!close){
 		SDL_Event event;
@@ -198,7 +199,7 @@ int main(int argc, char *argv[]){
 		loadBoard(&level_content, &board, load_type);
 		load_type=RELOAD;
 		key_direction = IDLE;
-		
+				
 
 		while(on_level){
 
@@ -245,6 +246,7 @@ int main(int argc, char *argv[]){
 				printf("TODO : WIN SCREEN\n");
 				on_level=false;
 				load_type=CHANGE_LEVEL;
+				level++;
 				continue;
 			}
 
@@ -289,6 +291,7 @@ int main(int argc, char *argv[]){
 			
 			renderPlayerHealth(&board, player_tex[0][1], rend);
 			renderPoints(&board, points_font, White, rend);
+			renderLevel(&board, points_font, White, rend, level);
 			renderGate(&board, gate_tex, rend);
 			
 			// update display
